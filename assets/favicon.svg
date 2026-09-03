@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Alan Mohan">
+  <rect width="32" height="32" fill="#12212E"/>
+  <!-- The site's recurring motif: a probe-accuracy peak over a measurement baseline. -->
+  <path d="M3 24.5H29" stroke="#5C6B6F" stroke-width="1.25"/>
+  <path d="M4 21.5 12 21 16.5 6.5 21 14.5 28 13"
+        fill="none" stroke="#6DC0A4" stroke-width="3.1"
+        stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

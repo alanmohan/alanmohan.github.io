@@ -1,0 +1,12 @@
+# Source documents kept locally, deliberately not published:
+#   - Alan_resume_v1_4.pdf   still contains a phone number; assets/Alan-Mohan-Resume.pdf
+#                            is the redacted copy the site links to
+#   - Experience Master.docx unpublished project detail beyond what the résumé states
+#   - pic.jpeg               1.7 MB original portrait; assets/portrait-*.{jpg,webp} are
+#                            the cropped, optimised versions the page uses
+Alan_resume_v1_4.pdf
+Experience Master.docx
+pic.jpeg
+
+.vscode/
+.DS_Store
