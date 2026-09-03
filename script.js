@@ -4,16 +4,16 @@
    Five enhancements, in order of how much they matter:
      1. theme      — light/dark, remembered across visits
      2. navigation — mobile menu, and a current-section state in the nav
-     3. projects   — turns the tile index and the four write-ups on projects.html
-                     into two views, keeping the URL and the Back button honest
+     3. projects   — shows the write-up on projects.html that the URL names, and
+                     all of them when it names none
      4. stepper    — turns the five written steps under the RAG diagram into a
                      walkthrough that highlights the matching part of the SVG
      5. masthead   — a hairline shadow once the page has scrolled
 
    Everything here is an enhancement. With JavaScript disabled the navigation is
-   fully expanded, the theme follows the operating system, every project write-up
-   sits below the tiles that link to it, and all five stepper entries are visible
-   as an ordered list. Nothing is hidden by CSS unless this file has run and
+   fully expanded, the theme follows the operating system, projects.html shows all
+   four write-ups in order, and all five stepper entries are visible as an ordered
+   list. Nothing is hidden by CSS unless this file has run and
    marked the document.
 
    AI assistance (Claude): drafted the IntersectionObserver approach for the
@@ -162,68 +162,46 @@
   }
 
   /* ------------------------------------------------------------- projects -- */
-  /* projects.html holds both the tile index and all four write-ups. Routing is
-     done off the URL hash rather than by intercepting clicks, so the tiles stay
-     ordinary links: the Back button, opening in a new tab and sharing a link to
-     one project all keep working for free. */
+  /* The tiles are on the home page; projects.html holds all four write-ups.
+     Routing is done off the URL hash rather than by intercepting clicks, so the
+     tiles stay ordinary links: sharing one, opening it in a new tab and the Back
+     button all keep working. With no hash — or with JavaScript off — the page is
+     simply all four write-ups in order. */
   function setUpProjectViews() {
-    var index = document.getElementById('project-index');
     var details = document.getElementById('project-details');
-    if (!index || !details) return;
+    if (!details) return;
 
     var projects = Array.prototype.slice.call(details.querySelectorAll('.project'));
     if (!projects.length) return;
 
-    var indexTitle = document.title;
-    var lastOpened = null;
-
-    function scrollToTop() {
-      // A view swap should land at the top instantly; the smooth scrolling in the
-      // stylesheet is for in-page anchors, not for changing what is on screen.
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }
-
-    function showIndex(moveFocus) {
-      projects.forEach(function (project) { project.hidden = true; });
-      details.hidden = true;
-      index.hidden = false;
-      document.title = indexTitle;
-
-      if (moveFocus && lastOpened) {
-        // Return the reader to the tile they opened, not to the top of the list.
-        var tile = index.querySelector('.tile__h a[href="#' + lastOpened + '"]');
-        if (tile) tile.focus();
-      }
-      scrollToTop();
-    }
-
-    function showProject(id, moveFocus) {
-      var target = null;
-      projects.forEach(function (project) {
-        var wanted = project.id === id;
-        project.hidden = !wanted;
-        if (wanted) target = project;
-      });
-      if (!target) { showIndex(false); return; }
-
-      index.hidden = true;
-      details.hidden = false;
-      lastOpened = id;
-
-      var heading = target.querySelector('.case__h');
-      document.title = (heading ? heading.textContent.trim() + ' — ' : '') + 'Alan Mohan';
-      if (moveFocus && heading) heading.focus({ preventScroll: true });
-      scrollToTop();
-    }
+    var allTitle = document.title;
 
     function route(moveFocus) {
       var id = window.location.hash.replace('#', '');
-      var isProject = projects.some(function (project) { return project.id === id; });
-      if (isProject) showProject(id, moveFocus);
-      else showIndex(moveFocus && id === 'project-index');
+      var target = null;
+      projects.forEach(function (project) {
+        if (project.id === id) target = project;
+      });
+
+      if (!target) {
+        projects.forEach(function (project) { project.hidden = false; });
+        document.title = allTitle;
+        return;
+      }
+
+      projects.forEach(function (project) { project.hidden = project !== target; });
+
+      var heading = target.querySelector('.case__h');
+      document.title = (heading ? heading.textContent.trim() + ' — ' : '') + 'Alan Mohan';
+      if (moveFocus && heading) {
+        heading.focus({ preventScroll: true });
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
     }
 
     window.addEventListener('hashchange', function () { route(true); });
+    // On first load the browser has already scrolled to the named write-up, so
+    // do not also move focus and undo that.
     route(false);
   }
 

@@ -36,8 +36,9 @@ Then visit <http://127.0.0.1:8113/>. Stop it with Ctrl-C.
 
 ```
 .
-├── index.html                     home: introduction, portrait, experience, contact, colophon
-├── projects.html                  tile index + the four write-ups it opens
+├── index.html                     home: introduction, portrait, project tiles,
+│                                  experience, contact, references
+├── projects.html                  the four project write-ups
 ├── resume.html                    the résumé in an inline viewer, with a download
 ├── styles.css                     design tokens and layout for all three pages
 ├── script.js                      theme, navigation, project routing, stepper — all enhancements
@@ -92,12 +93,13 @@ the accent tick above each section and page heading, and as the axes inside the
 diagrams.
 The favicon is the same idea: a probe-accuracy peak over a baseline.
 
-**Projects are indexed, then read.** Four tiles carry only what you need to decide
-whether to open one: what kind of work it is, the title, a sentence, and the stack.
-Opening a tile replaces the index with the full write-up rather than expanding a
-row, so the write-ups can be long without making the index unusable. The tiles are
-typographic — a hairline, generous space, and the accent only on the edge under the
-pointer — rather than the shadowed rounded cards this pattern usually attracts.
+**Projects are indexed, then read.** The home page carries four tiles, each with
+only what you need to decide whether to open one: what kind of work it is, the
+title, a sentence, and the stack. A tile opens its full write-up on
+`projects.html`, so the write-ups can be as long as they need to be without making
+the landing page unreadable. The tiles are typographic — a hairline, generous
+space, and the accent only on the edge under the pointer — rather than the shadowed
+rounded cards this pattern usually attracts.
 
 **Diagrams are drawn, not screenshotted.** All four are original inline SVG, so
 they inherit the theme rather than shipping as a second set of images, and each is
@@ -112,7 +114,7 @@ reveals and no hover transforms.
 
 ## Accessibility decisions
 
-Verified with an automated pass (72 checks) driven through the Chrome DevTools
+Verified with an automated pass (87 checks) driven through the Chrome DevTools
 Protocol, run against all three pages, plus manual inspection at three viewport
 widths in both themes.
 
@@ -136,13 +138,13 @@ widths in both themes.
   `tabindex="0"`, a role and a label *only while it actually overflows*, so
   keyboard users can pan it (WCAG 2.1.1) without leaving a dead tab stop on wide
   screens.
-- **The project index.** `projects.html` holds the tiles and all four write-ups in
-  one document; `script.js` shows one view at a time. Routing runs off the URL
-  hash rather than by intercepting clicks, so the tiles stay ordinary links — the
-  Back button, opening in a new tab and sharing a link to a single project all keep
-  working. Opening a project moves focus to its heading and updates the document
-  title; going back returns focus to the tile that was opened. With JavaScript off,
-  every write-up simply sits below the tiles that link to it.
+- **The project index.** The tiles are on the home page and link to
+  `projects.html#<id>`. `script.js` shows the write-up the URL names and updates the
+  document title to match; a later hash change swaps the write-up and moves focus to
+  its heading. Because the tiles are ordinary links rather than intercepted clicks,
+  sharing one, opening it in a new tab and the Back button all work untouched. With
+  JavaScript off — or with no hash — `projects.html` is simply all four write-ups in
+  order.
 - **The résumé viewer.** Desktop browsers get the PDF embedded in an `<object>`.
   Most mobile browsers cannot render one inline, so below 62em the stylesheet swaps
   in pre-rendered page images with full alt text instead of handing phones a blank
@@ -182,36 +184,24 @@ No `.nojekyll` file is needed — nothing here starts with an underscore.
 
 ## Attribution and AI use
 
-**Borrowed assets** — also listed in the page's own colophon, which is the visible
-version of this section:
+The site's **References** section lists everything on the page that is not mine:
+the two webfonts, the portrait photograph, and the AI assistance used to build it.
+The CSS, the JavaScript, the SVG diagrams and all of the writing are original, so
+they are not listed there.
 
-| Asset | Source | Licence |
-| --- | --- | --- |
-| Newsreader | Production Type, via Google Fonts | SIL Open Font License 1.1 |
-| IBM Plex Mono | IBM, via Google Fonts | SIL Open Font License 1.1 |
-| Portrait photograph | Sally Maxson, © Carnegie Mellon University — Information Networking Institute student portrait session, 2025 | Used as a CMU student portrait; cropped for this page |
-
-Nothing else is borrowed. There is no CSS framework, JavaScript library, icon set,
-illustration pack, template or stock photography. All diagrams, the favicon and
-all CSS and JavaScript were written for this project.
-
-**AI use.** The site was built with Claude Code (Claude Opus 5) in an extended
-session. AI assistance shaped: the initial architecture and section order; the
-exploration of the visual system and its token structure; the responsive strategy;
-the JavaScript interactions; and an accessibility and testing pass. Those points
-are marked with targeted comments in `index.html`, `styles.css` and `script.js`,
-and `prompt-log.md` holds the required conversational record.
-
-All content is mine, drawn from my résumé and my own project notes. Every figure
-on the page is attributed to the paper, report or role it came from, and both DOIs
-were resolved against CrossRef before being published. I understand the code and
-can explain any part of it.
-
-**Measurement note.** The "281 KB first-visit page weight" figure on the page was
-measured over the network at 1440px with a cold cache, uncompressed: 11 requests,
-of which about 162 KB is the two webfonts. GitHub Pages gzips the HTML, CSS and
-JavaScript, so the real figure is lower. If the assets change, re-measure rather
-than leaving the number stale.
+- **Typefaces.** Newsreader (Production Type) and IBM Plex Mono (IBM), both under
+  the SIL Open Font License, loaded from Google Fonts. This is the page's only
+  third-party request.
+- **Portrait.** Photograph by Sally Maxson, © Carnegie Mellon University, from the
+  Information Networking Institute student portrait session, 2025. Credited on the
+  page because it is someone else's copyrighted image, and the assignment requires a
+  visible citation for borrowed images.
+- **AI assistance.** Built with Claude. It shaped the initial architecture, the
+  visual-system exploration, the responsive strategy, the JavaScript interactions
+  and the accessibility and testing passes. Every place that matters carries a
+  comment saying so, and `prompt-log.md` holds the full record.
+- **No** icon set, CSS framework, JavaScript library, UI kit, template or stock
+  photography is used anywhere.
 
 ---
 

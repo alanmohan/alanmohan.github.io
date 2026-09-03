@@ -86,7 +86,7 @@ try {
     <nav class="site-nav" id="site-nav" aria-label="Primary">
       <ul>
         <li><a href="#about" aria-current="true">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
+        <li><a href="#projects">Projects</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="resume.html">Résumé</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -147,6 +147,48 @@ try {
       </picture>
       <figcaption>Pittsburgh, 2025.</figcaption>
     </figure>
+  </section>
+
+
+  <!-- ============================ PROJECTS ============================ -->
+  <!-- The index lives here; each tile opens its full write-up on projects.html. -->
+  <section class="section" id="projects" aria-labelledby="proj-h">
+    <div class="rail">
+      <h2 class="section__h" id="proj-h">Projects</h2>
+      <p class="rail-note">Two published papers, one product, and this site.</p>
+    </div>
+
+    <p class="flow lede">
+        Every figure comes from the paper, report or résumé it is attributed to.
+        The diagrams are drawn for this site; none of them are product screenshots.
+      </p>
+
+        <ul class="tiles wide">
+          <li class="tile">
+            <p class="tile__kind">Published research</p>
+            <h2 class="tile__h"><a href="projects.html#rag">Sentiment steering against RAG</a></h2>
+            <p class="tile__desc">Poisoning 0.04% of a retrieval corpus is enough to steer what a language model says about someone. This is the attack, and the detector that catches it.</p>
+            <p class="tile__tech">Python, FAISS, Sentence-Transformers, Llama 3.1</p>
+          </li>
+          <li class="tile">
+            <p class="tile__kind">Published research</p>
+            <h2 class="tile__h"><a href="projects.html#ids">Explainable intrusion detection for IoT</a></h2>
+            <p class="tile__desc">An intrusion detection system that shows which features drove the call — and then runs on fifteen of them instead of the full vector.</p>
+            <p class="tile__tech">Python, TensorFlow, Keras, SHAP</p>
+          </li>
+          <li class="tile">
+            <p class="tile__kind">Product</p>
+            <h2 class="tile__h"><a href="projects.html#hope">HOPE</a></h2>
+            <p class="tile__desc">Cognitive behavioural therapy delivered by an orchestrated team of agents rather than one chatbot that forgets you between sessions.</p>
+            <p class="tile__tech">PHP, MySQL, OpenAI GPT and Whisper, vector embeddings</p>
+          </li>
+          <li class="tile">
+            <p class="tile__kind">Build</p>
+            <h2 class="tile__h"><a href="projects.html#site">This site</a></h2>
+            <p class="tile__desc">Three hand-written pages with no framework and no build step. Original SVG diagrams, light and dark themes, and a small amount of vanilla JavaScript.</p>
+            <p class="tile__tech">HTML, CSS, vanilla JavaScript, inline SVG</p>
+          </li>
+        </ul>
   </section>
 
   <!-- ============================ EXPERIENCE ============================ -->
@@ -245,32 +287,28 @@ try {
   </section>
 </main>
 
-<!-- ============================ COLOPHON ============================ -->
-<footer class="colophon" id="colophon">
+<!-- ============================ REFERENCES ============================ -->
+<!-- Only work that is not mine: the two webfonts, the photograph, and the AI
+     assistance used to build the site. Everything else here — the CSS, the
+     JavaScript, the SVG diagrams and the writing — is original, so it is not
+     listed. -->
+<footer class="colophon" id="references">
   <div class="rail">
-    <h2 class="section__h">Colophon</h2>
+    <h2 class="section__h">References</h2>
   </div>
   <div class="flow colophon__body">
     <dl class="colophon__list">
       <div>
         <dt>Typefaces</dt>
-        <dd>Newsreader by Production Type and IBM Plex Mono by IBM, both under the SIL Open Font License, served by Google Fonts.</dd>
+        <dd>Newsreader by Production Type and IBM Plex Mono by IBM, both under the <a href="https://openfontlicense.org/">SIL Open Font License</a>, served by <a href="https://fonts.google.com/">Google Fonts</a>.</dd>
       </div>
       <div>
         <dt>Portrait</dt>
         <dd>Photograph by Sally Maxson, © Carnegie Mellon University, from the Information Networking Institute student portrait session, 2025. Cropped for this site.</dd>
       </div>
       <div>
-        <dt>Diagrams and icons</dt>
-        <dd>Original inline SVG, drawn for this site. No icon set, illustration library or stock photography is used.</dd>
-      </div>
-      <div>
-        <dt>Code</dt>
-        <dd>Hand-written HTML, CSS and JavaScript with no framework, UI library or build step. Built with AI assistance from Claude; the full prompt log is in the repository.</dd>
-      </div>
-      <div>
-        <dt>Text</dt>
-        <dd>Written by me from my own résumé and project notes. Figures are attributed to the paper or role they come from.</dd>
+        <dt>AI assistance</dt>
+        <dd>Built with <a href="https://claude.ai/">Claude</a> (Anthropic). Where it shaped the architecture, the visual system, the responsive layout, the JavaScript or the accessibility work, the code says so in a comment; the full prompt log is in the repository.</dd>
       </div>
     </dl>
     <p class="colophon__foot">© 2026 Alan Mohan. <a href="#top">Back to top</a></p>

@@ -61,7 +61,7 @@ try {
     <nav class="site-nav" id="site-nav" aria-label="Primary">
       <ul>
         <li><a href="index.html#about">About</a></li>
-        <li><a href="projects.html" aria-current="page">Projects</a></li>
+        <li><a href="index.html#projects" aria-current="true">Projects</a></li>
         <li><a href="index.html#experience">Experience</a></li>
         <li><a href="resume.html">Résumé</a></li>
         <li><a href="index.html#contact">Contact</a></li>
@@ -80,57 +80,24 @@ try {
 
 <main id="main">
   <!--
-    Two views in one document. The tile index and the four write-ups are both in
-    the markup; script.js shows one at a time and keeps the URL in step, so a
-    project can be linked to directly. With JavaScript disabled every write-up is
-    simply below the tiles and the tiles are ordinary in-page anchors.
-    (AI assistance: Claude drafted the History API wiring; the no-JS fallback and
-    the focus handling were reworked here.)
+    All four write-ups live in this document. The tiles that link here are on the
+    home page; script.js shows whichever write-up the URL names, and shows all of
+    them when the URL names none. Because the tiles are ordinary links, sharing,
+    opening in a new tab and the Back button all work without any interception,
+    and with JavaScript disabled the page is simply all four write-ups in order.
+    (AI assistance: Claude drafted the hash routing; the no-JS behaviour and the
+    focus handling were reworked here.)
   -->
   <section class="section section--projects" aria-labelledby="projects-h">
     <div class="rail">
       <h1 class="page-title" id="projects-h">Projects</h1>
-      <p class="rail-note">Two published papers, one product, and this site.</p>
-    </div>
-
-    <div class="wide" id="project-index">
-      <p class="lede">
-        Every figure comes from the paper, report or résumé it is attributed to.
-        The diagrams are drawn for this site; none of them are product screenshots.
-      </p>
-
-      <ul class="tiles">
-        <li class="tile">
-          <p class="tile__kind">Published research</p>
-          <h2 class="tile__h"><a href="#rag">Sentiment steering against RAG</a></h2>
-          <p class="tile__desc">Poisoning 0.04% of a retrieval corpus is enough to steer what a language model says about someone. This is the attack, and the detector that catches it.</p>
-          <p class="tile__tech">Python, FAISS, Sentence-Transformers, Llama 3.1</p>
-        </li>
-        <li class="tile">
-          <p class="tile__kind">Published research</p>
-          <h2 class="tile__h"><a href="#ids">Explainable intrusion detection for IoT</a></h2>
-          <p class="tile__desc">An intrusion detection system that shows which features drove the call — and then runs on fifteen of them instead of the full vector.</p>
-          <p class="tile__tech">Python, TensorFlow, Keras, SHAP</p>
-        </li>
-        <li class="tile">
-          <p class="tile__kind">Product</p>
-          <h2 class="tile__h"><a href="#hope">HOPE</a></h2>
-          <p class="tile__desc">Cognitive behavioural therapy delivered by an orchestrated team of agents rather than one chatbot that forgets you between sessions.</p>
-          <p class="tile__tech">PHP, MySQL, OpenAI GPT and Whisper, vector embeddings</p>
-        </li>
-        <li class="tile">
-          <p class="tile__kind">Build</p>
-          <h2 class="tile__h"><a href="#site">This site</a></h2>
-          <p class="tile__desc">Three hand-written pages with no framework and no build step. Original SVG diagrams, light and dark themes, and a small amount of vanilla JavaScript.</p>
-          <p class="tile__tech">HTML, CSS, vanilla JavaScript, inline SVG</p>
-        </li>
-      </ul>
+      <p class="rail-note">Written up in full. The index is on the home page.</p>
     </div>
 
     <div class="wide" id="project-details">
 
       <article class="project" id="rag" aria-labelledby="rag-h">
-      <p class="project__back"><a href="#project-index" data-back>All projects</a></p>
+      <p class="project__back"><a href="index.html#projects" data-back>All projects</a></p>
         <div class="case">
           <div class="case__head">
             <h2 class="case__h" id="rag-h" tabindex="-1">Sentiment steering against RAG</h2>
@@ -298,7 +265,7 @@ try {
       </article>
 
       <article class="project" id="ids" aria-labelledby="ids-h">
-      <p class="project__back"><a href="#project-index" data-back>All projects</a></p>
+      <p class="project__back"><a href="index.html#projects" data-back>All projects</a></p>
         <div class="case">
           <div class="case__head">
             <h2 class="case__h" id="ids-h" tabindex="-1">Explainable intrusion detection for IoT</h2>
@@ -451,7 +418,7 @@ try {
       </article>
 
       <article class="project" id="hope" aria-labelledby="hope-h">
-      <p class="project__back"><a href="#project-index" data-back>All projects</a></p>
+      <p class="project__back"><a href="index.html#projects" data-back>All projects</a></p>
         <div class="case">
           <div class="case__head">
             <h2 class="case__h" id="hope-h" tabindex="-1">HOPE</h2>
@@ -543,7 +510,7 @@ try {
       </article>
 
       <article class="project" id="site" aria-labelledby="site-h">
-      <p class="project__back"><a href="#project-index" data-back>All projects</a></p>
+      <p class="project__back"><a href="index.html#projects" data-back>All projects</a></p>
         <div class="case">
           <div class="case__head">
             <h2 class="case__h" id="site-h" tabindex="-1">This site</h2>
@@ -619,7 +586,7 @@ try {
 </main>
 
 <footer class="footer-slim">
-  <p>© 2026 Alan Mohan. <a href="index.html#colophon">Credits and colophon</a></p>
+  <p>© 2026 Alan Mohan. <a href="index.html#references">References</a></p>
 </footer>
 
 <script src="script.js" defer></script>

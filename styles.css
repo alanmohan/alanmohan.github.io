@@ -636,11 +636,12 @@ figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
 @media (min-width: 62em) {
   .role {
     display: grid;
-    grid-template-columns: 11rem minmax(0, var(--measure));
+    grid-template-columns: 12.5rem minmax(0, var(--measure));
     column-gap: var(--s-6);
     align-items: start;
   }
-  .role__when { text-align: right; }
+  .role__when { grid-column: 1; grid-row: 1; text-align: right; }
+  .role > :not(.role__when) { grid-column: 2; }
 }
 .role__when { display: grid; gap: var(--s-1); color: var(--ink-muted); }
 .role__h { font-size: var(--t-lg); font-weight: 400; margin-bottom: var(--s-3); }
