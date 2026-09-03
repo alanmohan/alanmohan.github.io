@@ -1,17 +1,20 @@
 /* =============================================================================
    Alan Mohan — portfolio behaviour
 
-   Four enhancements, in order of how much they matter:
+   Five enhancements, in order of how much they matter:
      1. theme      — light/dark, remembered across visits
      2. navigation — mobile menu, and a current-section state in the nav
-     3. stepper    — turns the five written steps under the RAG diagram into a
+     3. projects   — turns the tile index and the four write-ups on projects.html
+                     into two views, keeping the URL and the Back button honest
+     4. stepper    — turns the five written steps under the RAG diagram into a
                      walkthrough that highlights the matching part of the SVG
-     4. masthead   — a hairline shadow once the page has scrolled
+     5. masthead   — a hairline shadow once the page has scrolled
 
    Everything here is an enhancement. With JavaScript disabled the navigation is
-   fully expanded, the theme follows the operating system, and all five stepper
-   entries are visible as an ordered list. Nothing is hidden by CSS unless this
-   file has run and marked the document.
+   fully expanded, the theme follows the operating system, every project write-up
+   sits below the tiles that link to it, and all five stepper entries are visible
+   as an ordered list. Nothing is hidden by CSS unless this file has run and
+   marked the document.
 
    AI assistance (Claude): drafted the IntersectionObserver approach for the
    current-section state and the stepper's keyboard and aria-live handling. Both
@@ -156,6 +159,72 @@
     }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
 
     targets.forEach(function (section) { observer.observe(section); });
+  }
+
+  /* ------------------------------------------------------------- projects -- */
+  /* projects.html holds both the tile index and all four write-ups. Routing is
+     done off the URL hash rather than by intercepting clicks, so the tiles stay
+     ordinary links: the Back button, opening in a new tab and sharing a link to
+     one project all keep working for free. */
+  function setUpProjectViews() {
+    var index = document.getElementById('project-index');
+    var details = document.getElementById('project-details');
+    if (!index || !details) return;
+
+    var projects = Array.prototype.slice.call(details.querySelectorAll('.project'));
+    if (!projects.length) return;
+
+    var indexTitle = document.title;
+    var lastOpened = null;
+
+    function scrollToTop() {
+      // A view swap should land at the top instantly; the smooth scrolling in the
+      // stylesheet is for in-page anchors, not for changing what is on screen.
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    function showIndex(moveFocus) {
+      projects.forEach(function (project) { project.hidden = true; });
+      details.hidden = true;
+      index.hidden = false;
+      document.title = indexTitle;
+
+      if (moveFocus && lastOpened) {
+        // Return the reader to the tile they opened, not to the top of the list.
+        var tile = index.querySelector('.tile__h a[href="#' + lastOpened + '"]');
+        if (tile) tile.focus();
+      }
+      scrollToTop();
+    }
+
+    function showProject(id, moveFocus) {
+      var target = null;
+      projects.forEach(function (project) {
+        var wanted = project.id === id;
+        project.hidden = !wanted;
+        if (wanted) target = project;
+      });
+      if (!target) { showIndex(false); return; }
+
+      index.hidden = true;
+      details.hidden = false;
+      lastOpened = id;
+
+      var heading = target.querySelector('.case__h');
+      document.title = (heading ? heading.textContent.trim() + ' — ' : '') + 'Alan Mohan';
+      if (moveFocus && heading) heading.focus({ preventScroll: true });
+      scrollToTop();
+    }
+
+    function route(moveFocus) {
+      var id = window.location.hash.replace('#', '');
+      var isProject = projects.some(function (project) { return project.id === id; });
+      if (isProject) showProject(id, moveFocus);
+      else showIndex(moveFocus && id === 'project-index');
+    }
+
+    window.addEventListener('hashchange', function () { route(true); });
+    route(false);
   }
 
   /* -------------------------------------------------------------- stepper -- */
@@ -303,6 +372,7 @@
   setUpTheme();
   setUpNav();
   setUpCurrentSection();
+  setUpProjectViews();
   setUpSteppers();
   setUpScrollableFigures();
   setUpMasthead();

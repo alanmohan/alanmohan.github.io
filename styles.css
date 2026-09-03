@@ -191,15 +191,15 @@ strong { font-weight: 600; }
 .figure,
 .rail-note,
 .case__meta,
-.entry__meta,
+.tile__kind,
+.tile__tech,
+.case__note,
+.footer-slim,
 .role__when,
 .pub__venue,
-.awards__when,
 .contact__k,
 .case__tech,
-.education__meta,
 .stats dt,
-.ledger dd,
 .site-nav,
 .nav-toggle,
 .theme-toggle,
@@ -282,7 +282,7 @@ figcaption {
   border-bottom: 1px solid transparent;
 }
 .site-nav a:hover { color: var(--ink); }
-.site-nav a[aria-current="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.site-nav a[aria-current] { color: var(--ink); border-bottom-color: var(--accent); }
 .site-nav__aside a { color: var(--accent); }
 
 /* The toggles are enhancements; without JavaScript they would do nothing, so
@@ -327,7 +327,7 @@ figcaption {
   grid-template-columns: minmax(0, 1fr);
   gap: var(--s-5);
 }
-.section > *, .colophon > *, .case > *, .entries > * { min-width: 0; }
+.section > *, .colophon > *, .case > *, .tiles > * { min-width: 0; }
 
 .section__h {
   font-size: var(--t-lg);
@@ -360,7 +360,7 @@ figcaption {
 }
 
 /* -----------------------------------------------------------------------------
-   6. Hero
+   6. Hero — now also the About section: introduction beside the portrait
    -------------------------------------------------------------------------- */
 .hero {
   display: grid;
@@ -369,9 +369,9 @@ figcaption {
 }
 @media (min-width: 62em) {
   .hero {
-    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
     column-gap: var(--s-8);
-    padding-block: var(--s-10) var(--s-11);
+    padding-block: var(--s-10);
     align-items: start;
   }
 }
@@ -390,6 +390,11 @@ figcaption {
   text-wrap: pretty;
 }
 .hero__thesis strong { font-weight: 500; }
+
+.hero__about { margin-top: var(--s-5); max-width: 54ch; }
+.hero__about > * + * { margin-top: var(--s-4); }
+.hero__about p { color: var(--ink-muted); text-wrap: pretty; }
+
 .hero__actions {
   margin-top: var(--s-6);
   display: flex;
@@ -397,39 +402,16 @@ figcaption {
   gap: var(--s-5);
 }
 
-/* The evidence ledger: three numbers, each with the source it came from. */
-.ledger { border-top: 1px solid var(--rule-mid); padding-top: var(--s-4); }
-.ledger__h {
-  font-family: var(--font-mono);
-  font-size: var(--t-xs);
-  font-weight: 400;
-  color: var(--ink-muted);
-  margin-bottom: var(--s-4);
-}
-.ledger__row { padding-block: var(--s-3); border-bottom: 1px solid var(--rule); }
-.ledger__row:last-child { border-bottom: 0; }
-.ledger dt { font-size: var(--t-base); line-height: 1.42; }
-.ledger dt .figure {
-  display: block;
-  font-size: var(--t-xl);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: var(--accent);
-  line-height: 1.06;
-  margin-bottom: var(--s-1);
-}
-.ledger dd { color: var(--ink-muted); margin-top: var(--s-2); }
-
-
 /* One orchestrated entrance on load, and only on load. Everything is present in
    the document regardless — the animation only moves it into place. */
 @media (prefers-reduced-motion: no-preference) {
-  .hero__name, .hero__thesis, .hero__actions, .ledger {
+  .hero__name, .hero__thesis, .hero__about, .hero__actions, .portrait {
     animation: rise 520ms var(--ease) backwards;
   }
   .hero__thesis  { animation-delay: 70ms; }
-  .hero__actions { animation-delay: 140ms; }
-  .ledger        { animation-delay: 200ms; }
+  .hero__about   { animation-delay: 130ms; }
+  .hero__actions { animation-delay: 190ms; }
+  .portrait      { animation-delay: 120ms; }
 }
 @keyframes rise {
   from { opacity: 0; transform: translateY(0.6rem); }
@@ -437,89 +419,108 @@ figcaption {
 }
 
 /* -----------------------------------------------------------------------------
-   7. About
+   7. Portrait
    -------------------------------------------------------------------------- */
-@media (min-width: 62em) {
-  /* Explicit placement so the portrait sits in the right gutter beside the bio
-     rather than interrupting the reading measure. */
-  #about .rail            { grid-row: 1; }
-  #about .about__bio      { grid-column: 2; grid-row: 1; }
-  #about .portrait        { grid-column: 3; grid-row: 1 / span 2; align-self: start; }
-  #about .about__interests{ grid-column: 2; grid-row: 2; }
-}
-
 .portrait { margin: 0; }
 .portrait img {
   width: 100%;
-  max-width: 22rem;
+  max-width: 24rem;
   border-radius: var(--r-xs);
   filter: saturate(0.94);
 }
 .portrait figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
 
-.capabilities__grid {
-  display: grid;
-  gap: 0;
-  border-top: 1px solid var(--rule);
+/* -----------------------------------------------------------------------------
+   8. Projects — the tile index and the write-ups it opens
+   -------------------------------------------------------------------------- */
+.page-title {
+  font-size: var(--t-2xl);
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
-.capability {
+.page-title::before {
+  content: "";
+  display: block;
+  width: 22px;
+  border-top: 2px solid var(--accent);
+  margin-bottom: var(--s-3);
+}
+
+/* Tiles are typographic, not cards: a hairline, generous space, and the accent
+   only on the edge that the pointer is over. */
+.tiles {
   display: grid;
-  gap: var(--s-1) var(--s-5);
-  padding-block: var(--s-4);
-  border-bottom: 1px solid var(--rule);
+  gap: var(--s-5);
+  margin-top: var(--s-7);
 }
 @media (min-width: 48em) {
-  .capability { grid-template-columns: 15rem minmax(0, 1fr); }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6); }
 }
-.capability dt { font-size: var(--t-md); }
-.capability dd { color: var(--ink-muted); font-size: var(--t-base); line-height: var(--lh-body); }
-
-.education__list { margin-top: var(--s-2); }
-.education__list li { padding-block: var(--s-4); border-top: 1px solid var(--rule); }
-.education__degree { font-size: var(--t-md); }
-.education__org { color: var(--ink-muted); }
-.education__meta { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); color: var(--ink-muted); margin-top: var(--s-2); }
-.education__cta { margin-top: var(--s-5); }
-
-/* -----------------------------------------------------------------------------
-   8. Selected work
-   -------------------------------------------------------------------------- */
-.case { padding-top: var(--s-6); }
-.case + .case, .entries { margin-top: var(--s-8); padding-top: var(--s-8); border-top: 1px solid var(--rule-mid); }
-
-@media (min-width: 62em) {
-  .case {
-    display: grid;
-    grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr);
-    column-gap: var(--s-7);
-    row-gap: var(--s-6);
-    align-items: start;
-  }
-  .case__head { grid-column: 1 / -1; }
-  .case__prose { grid-column: 1; }
-  .case__prose { margin-top: 0; }
-  .case > .stats { grid-column: 2; grid-row: 2; margin-top: 0; }
-  .pipeline, .case > .diagram { grid-column: 1 / -1; }
+.tile {
+  position: relative;
+  border-top: 1px solid var(--rule-mid);
+  padding-top: var(--s-4);
+  transition: border-color var(--dur-2) var(--ease);
 }
+.tile__kind { color: var(--ink-muted); }
+.tile__h { font-size: var(--t-xl); font-weight: 400; letter-spacing: -0.012em; margin-top: var(--s-2); }
+.tile__h a { color: var(--ink); text-decoration: none; }
+/* Stretch the title's link over the whole tile so the entire block is clickable
+   while the accessible name stays just the project title. */
+.tile__h a::after { content: ""; position: absolute; inset: 0; }
+.tile__desc { margin-top: var(--s-3); color: var(--ink-muted); text-wrap: pretty; }
+.tile__tech { margin-top: var(--s-4); color: var(--ink-muted); }
 
+.tile:hover { border-top-color: var(--accent); }
+.tile:hover .tile__h a { color: var(--accent); }
+.tile:has(a:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+  border-radius: var(--r-xs);
+}
+.tile__h a:focus-visible { outline: none; }
+
+/* Each write-up. With JavaScript they are shown one at a time; without it they
+   simply follow the tiles down the page. */
+.project { padding-top: var(--s-6); }
+.project:not([hidden]) + .project:not([hidden]) {
+  margin-top: var(--s-8);
+  border-top: 1px solid var(--rule-mid);
+}
+.project__back { margin-bottom: var(--s-5); }
+.project__back a {
+  font-family: var(--font-mono);
+  font-size: var(--t-sm);
+  color: var(--ink-muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 2px;
+}
+.project__back a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.case__h:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+
+/* Prose stays at a comfortable measure; figures use the whole column so the
+   diagram type stays legible. */
+.case__head, .case__prose { max-width: var(--measure); }
 .case__prose { margin-top: var(--s-5); }
+
 .case__h { font-size: var(--t-2xl); font-weight: 400; letter-spacing: -0.015em; }
-.case__meta, .entry__meta {
+.case__meta {
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-1) var(--s-4);
   color: var(--ink-muted);
   margin-top: var(--s-3);
 }
-.case__meta span, .entry__meta span { display: inline-block; }
-.case__problem, .entry__problem { font-size: var(--t-md); line-height: 1.5; }
+.case__problem { font-size: var(--t-md); line-height: 1.5; }
 
 .case__tech { color: var(--ink-muted); margin-top: var(--s-5); line-height: 1.62; }
 .case__tech-k { color: var(--ink); display: block; margin-bottom: var(--s-1); }
-.case__links { margin-top: var(--s-5); display: flex; flex-wrap: wrap; gap: var(--s-5); }
+.case__links { margin-top: var(--s-4); display: flex; flex-wrap: wrap; gap: var(--s-5); }
+.case__note { color: var(--ink-muted); }
 
-/* Statistics. Horizontal inside a case's prose; vertical when the case hands
-   them to the right gutter. */
+/* Statistics. Horizontal inside a write-up's prose; vertical when the write-up
+   hands them to the right gutter. */
 .stats {
   display: grid;
   gap: var(--s-4) var(--s-5);
@@ -528,15 +529,12 @@ figcaption {
   padding-top: var(--s-4);
 }
 @media (min-width: 40em) {
-  .case__prose .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .stats--inline { grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }
+  .stats { grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
 }
 .stats dt { color: var(--ink-muted); line-height: 1.42; }
 .stats dd { font-size: var(--t-lg); font-family: var(--font-mono); font-weight: 400; letter-spacing: -0.02em; margin-top: var(--s-1); }
 .stats .stat--key dd { color: var(--accent); }
-.stats--inline dd:not(.figure) { font-family: var(--font-serif); font-size: var(--t-base); line-height: 1.45; }
-.case > .stats .stat { padding-bottom: var(--s-4); border-bottom: 1px solid var(--rule); }
-.case > .stats .stat:last-child { border-bottom: 0; padding-bottom: 0; }
+.stats dd:not(.figure) { font-family: var(--font-serif); font-size: var(--t-base); line-height: 1.45; }
 
 /* Figures and diagrams */
 figure { margin: 0; }
@@ -552,10 +550,11 @@ figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
   border-radius: var(--r-xs);
   padding: var(--s-4);
 }
-.diagram--compact { margin-top: var(--s-6); }
+.diagram--compact { margin-top: var(--s-6); max-width: 34rem; }
+.diagram--compact.shot { max-width: 48rem; }
 .shot img { border: 1px solid var(--rule); border-radius: var(--r-xs); width: 100%; }
 
-/* Diagram vocabulary — shared by every SVG on the page so they read as one set. */
+/* Diagram vocabulary — shared by every SVG on the site so they read as one set. */
 .pl-box, .dg-box { fill: var(--paper); stroke: var(--rule-strong); stroke-width: 1; }
 .pl-box--focus, .dg-box--focus { fill: var(--accent-tint); stroke: var(--accent); }
 .pl-box--alert, .dg-box--alert { fill: none; stroke: var(--ink-muted); stroke-dasharray: 3 3; }
@@ -575,8 +574,8 @@ figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
 
 /* Active stage in the interactive pipeline. */
 .pl-stage { transition: opacity var(--dur-2) var(--ease); }
-.is-stepping .pl-stage { opacity: 0.45; }
-.is-stepping .pl-stage.is-active { opacity: 1; }
+.is-enhanced .pl-stage { opacity: 0.38; }
+.is-enhanced .pl-stage.is-active { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .pl-stage { transition: none; } }
 
 /* Stepper. Without JavaScript this is simply an ordered list of five points and
@@ -589,7 +588,7 @@ figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
   .stepper__list { grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
 }
 
-.stepper.is-enhanced .stepper__list { display: block; min-height: 6.5rem; }
+.stepper.is-enhanced .stepper__list { display: block; min-height: 8.5rem; }
 .stepper.is-enhanced .step { display: none; }
 .stepper.is-enhanced .step.is-active { display: block; max-width: 58ch; }
 
@@ -628,16 +627,6 @@ figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
 }
 .stepper__dot[aria-current="true"] { color: var(--accent); border-bottom-color: var(--accent); }
 
-/* Compact project entries */
-.entries { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); }
-@media (min-width: 62em) {
-  .entries { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-7); }
-}
-.entry__h { font-size: var(--t-xl); font-weight: 400; letter-spacing: -0.012em; }
-.entry__prose > * + * { margin-top: var(--s-4); }
-.entry__prose { margin-top: var(--s-4); }
-.entry__note { color: var(--ink-muted); font-size: var(--t-sm); font-family: var(--font-mono); }
-
 /* -----------------------------------------------------------------------------
    9. Experience
    -------------------------------------------------------------------------- */
@@ -651,9 +640,7 @@ figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
     column-gap: var(--s-6);
     align-items: start;
   }
-  .role__when { grid-column: 1; grid-row: 1 / span 2; text-align: right; }
-  .role__h    { grid-column: 2; grid-row: 1; }
-  .role > p:not(.role__when) { grid-column: 2; grid-row: 2; }
+  .role__when { text-align: right; }
 }
 .role__when { display: grid; gap: var(--s-1); color: var(--ink-muted); }
 .role__h { font-size: var(--t-lg); font-weight: 400; margin-bottom: var(--s-3); }
@@ -661,40 +648,67 @@ figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
 .role p { text-wrap: pretty; }
 
 /* -----------------------------------------------------------------------------
-   10. Research
+   10. Publication record — shown inside the two research write-ups
    -------------------------------------------------------------------------- */
-.pubs { display: grid; gap: var(--s-8); }
-.pub { border-left: 2px solid var(--accent); padding-left: var(--s-5); }
+.pub-record {
+  margin-top: var(--s-6);
+  padding-left: var(--s-5);
+  border-left: 2px solid var(--accent);
+}
+.pub-record .minor-h { margin-top: 0; }
 .pub__authors { color: var(--ink-muted); font-size: var(--t-sm); }
 .pub__me { color: var(--ink); font-weight: 600; }
-.pub__title { font-size: var(--t-xl); font-weight: 400; margin-block: var(--s-2) var(--s-3); letter-spacing: -0.012em; }
-.pub__title a { color: var(--ink); text-decoration-color: var(--accent); text-decoration-thickness: 1px; }
-.pub__title a:hover { color: var(--accent); }
-.pub__venue { display: grid; gap: var(--s-1); color: var(--ink-muted); }
-.pub__doi { color: var(--ink-muted); }
-.pub__notes { margin-top: var(--s-5); display: grid; gap: var(--s-4); }
-.pub__notes dt {
-  font-family: var(--font-mono);
-  font-size: var(--t-sm);
-  color: var(--ink-muted);
-  margin-bottom: var(--s-1);
-}
-.pub__notes dd { text-wrap: pretty; }
+.pub__venue { display: grid; gap: var(--s-1); color: var(--ink-muted); margin-top: var(--s-2); }
 
 /* -----------------------------------------------------------------------------
-   11. Recognition, contact, colophon
+   11. Résumé page
    -------------------------------------------------------------------------- */
-.awards { display: grid; }
-.awards li { padding-block: var(--s-4); border-top: 1px solid var(--rule); }
-.awards li:first-child { border-top: 0; padding-top: 0; }
-@media (min-width: 62em) {
-  .awards li { display: grid; grid-template-columns: 11rem minmax(0, 1fr); column-gap: var(--s-6); }
-  .awards__when { text-align: right; }
+.button {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--t-sm);
+  text-decoration: none;
+  color: var(--paper);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--r-sm);
+  padding: var(--s-2) var(--s-4);
 }
-.awards__when { color: var(--ink-muted); }
-.awards__what { font-size: var(--t-md); }
-.awards__what span { display: block; color: var(--ink-muted); font-size: var(--t-base); margin-top: var(--s-1); }
+.button:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
+.resume__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-5); }
+
+/* The browser's own PDF viewer on screens that have one; pre-rendered pages
+   everywhere else. Only one of the two is ever displayed. */
+.resume__pdf {
+  display: none;
+  width: 100%;
+  height: min(88vh, 60rem);
+  margin-top: var(--s-6);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-xs);
+  background: var(--paper-raised);
+}
+.resume__fallback { padding: var(--s-6); color: var(--ink-muted); }
+
+.resume__pages { margin-top: var(--s-6); display: grid; gap: var(--s-6); justify-items: start; }
+.resume__pages img {
+  width: 100%;
+  max-width: 42rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-xs);
+  background: #fff;
+}
+.resume__pages figcaption { color: var(--ink-muted); margin-top: var(--s-2); }
+
+@media (min-width: 62em) {
+  .resume__pdf { display: block; }
+  .resume__pages { display: none; }
+}
+
+/* -----------------------------------------------------------------------------
+   12. Contact, colophon, slim footer
+   -------------------------------------------------------------------------- */
 .contact__invite { font-size: var(--t-lg); line-height: 1.44; max-width: 44ch; text-wrap: pretty; }
 .contact__list { margin-top: var(--s-6); display: grid; }
 .contact__list li {
@@ -706,8 +720,6 @@ figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
   border-top: 1px solid var(--rule);
 }
 .contact__k { color: var(--ink-muted); }
-/* Grid items stretch by default, which dragged each link's underline across the
-   whole column. Shrink them back to the width of their own text. */
 .contact__list a { justify-self: start; }
 
 .colophon { padding-bottom: var(--s-9); }
@@ -728,8 +740,20 @@ figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
   color: var(--ink-muted);
 }
 
+/* Pages other than the home page carry a one-line footer that points back to the
+   full colophon rather than repeating it. */
+.footer-slim {
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding: var(--s-5) var(--pad-x) var(--s-8);
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: var(--t-sm);
+  color: var(--ink-muted);
+}
+
 /* -----------------------------------------------------------------------------
-   12. Small screens
+   13. Small screens
    Mobile is composed, not stacked: the rail becomes a running head, the reading
    measure widens, and the two toggles collapse into one row.
    (AI assistance: Claude proposed the js-gated collapse so the navigation stays
@@ -752,7 +776,7 @@ figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
   .site-nav li { width: 100%; }
   .site-nav a { display: block; padding-block: var(--s-3); border-bottom: 1px solid var(--rule); }
   .site-nav li:last-child a { border-bottom: 0; }
-  .site-nav a[aria-current="true"] { border-bottom-color: var(--rule); box-shadow: inset 2px 0 0 var(--accent); padding-left: var(--s-3); }
+  .site-nav a[aria-current] { border-bottom-color: var(--rule); box-shadow: inset 2px 0 0 var(--accent); padding-left: var(--s-3); }
 
   .masthead__inner { padding-block: var(--s-2); }
   .theme-toggle__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -761,12 +785,12 @@ figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
 
 @media (max-width: 47.999em) {
   :root { --pad-x: 1.125rem; --measure: 100%; }
-  .hero__thesis { max-width: none; }
+  .hero__thesis, .hero__about { max-width: none; }
   .contact__list li { grid-template-columns: 1fr; gap: var(--s-1); }
   /* Wide diagrams keep their type legible and scroll inside their own box
      rather than shrinking to unreadable or widening the page. */
   .pipeline__svg, .diagram__svg { min-width: 28rem; }
-  .pipeline, .case > .diagram, .diagram--compact:not(.shot) {
+  .pipeline, .diagram:not(.diagram--compact), .diagram--compact:not(.shot) {
     overflow-x: auto;
     padding-bottom: var(--s-2);
     overscroll-behavior-x: contain;
@@ -776,7 +800,7 @@ figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
 }
 
 /* -----------------------------------------------------------------------------
-   13. Reduced motion and print
+   14. Reduced motion and print
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

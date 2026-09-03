@@ -36,19 +36,27 @@ Then visit <http://127.0.0.1:8113/>. Stop it with Ctrl-C.
 
 ```
 .
-├── index.html                     the whole page: semantic sections, inline SVG diagrams
-├── styles.css                     design tokens and layout; no preprocessor
-├── script.js                      theme, navigation, stepper, scroll state — all enhancements
+├── index.html                     home: introduction, portrait, experience, contact, colophon
+├── projects.html                  tile index + the four write-ups it opens
+├── resume.html                    the résumé in an inline viewer, with a download
+├── styles.css                     design tokens and layout for all three pages
+├── script.js                      theme, navigation, project routing, stepper — all enhancements
 ├── README.md                      this file
 ├── prompt-log.md                  required AI-use record for 15-113
 └── assets/
-    ├── Alan-Mohan-Resume.pdf      the downloadable résumé, phone number removed
+    ├── Alan-Mohan-Resume.pdf      the résumé, phone number removed from the text layer
+    ├── resume-page-{1,2}{,-650}.webp   pre-rendered pages, used where PDFs cannot embed
     ├── portrait-{400,800,1200}.{jpg,webp}
     ├── portfolio-screenshot-{800,1200}.{png,webp}
-    ├── og-image.png               social-sharing card (a real render of the hero)
+    ├── og-image.png               social-sharing card (a real render of the home page)
     ├── favicon.svg
     └── apple-touch-icon.png
 ```
+
+**Three pages, one stylesheet, one script.** The head, masthead and footer are
+repeated in each HTML file rather than assembled by a template, because the whole
+point of the setup is that there is no build step. The trade is that a change to
+the navigation has to be made in three places.
 
 Three source files stay on my machine and are listed in `.gitignore`, so they are
 not published: `Alan_resume_v1_4.pdf` (it still contains a phone number),
@@ -60,11 +68,12 @@ which has the phone number removed, and the cropped `assets/portrait-*` images.
 
 ## Design rationale
 
-**The idea: a technical publication, not a landing page.** Everything on the page
-is arranged so a technically literate reader can check what I claim. The layout is
-a margin rail carrying headings and metadata beside a single comfortable reading
-measure, with a wide right gutter that diagrams and statistics break into. It is
-deliberately left-anchored and asymmetric rather than centred.
+**The idea: a technical publication, not a landing page.** Everything is arranged
+so a technically literate reader can check what I claim. Each section is a margin
+rail carrying the heading and its metadata, beside a single comfortable reading
+measure, with a wide right gutter that figures break into. The grid is deliberately
+left-anchored and asymmetric rather than centred, and it is the same on all three
+pages.
 
 **One typographic rule governs the page.** The serif makes claims; the monospace
 holds facts you can check — figures, dates, DOIs, venues, dataset names. That rule
@@ -79,18 +88,21 @@ a deep ink ground with the accent brightened. Every value in both themes was
 checked for contrast before it was committed (see below).
 
 **The motif** is a measurement scale — a hairline with tick marks. It appears as
-the accent tick above each section heading and as the axes inside the diagrams.
+the accent tick above each section and page heading, and as the axes inside the
+diagrams.
 The favicon is the same idea: a probe-accuracy peak over a baseline.
 
-**Shape follows weight.** The two published papers get large case-study treatments
-and are shaped differently from each other — the RAG paper puts an interactive
-diagram across the full width, the intrusion-detection paper hands its statistics
-to the margin. HOPE and this site are compact entries. Nothing is a card grid.
+**Projects are indexed, then read.** Four tiles carry only what you need to decide
+whether to open one: what kind of work it is, the title, a sentence, and the stack.
+Opening a tile replaces the index with the full write-up rather than expanding a
+row, so the write-ups can be long without making the index unusable. The tiles are
+typographic — a hairline, generous space, and the accent only on the edge under the
+pointer — rather than the shadowed rounded cards this pattern usually attracts.
 
 **Diagrams are drawn, not screenshotted.** All four are original inline SVG, so
 they inherit the theme rather than shipping as a second set of images, and each is
 captioned "Original diagram" so it is never mistaken for a product screenshot. The
-one real screenshot on the page is of this page.
+one real screenshot on the site is of the site's own home page.
 
 **Motion** happens once on load, as a single short staggered entrance, and
 otherwise only in response to a click or a keypress. There are no scroll-triggered
@@ -100,8 +112,9 @@ reveals and no hover transforms.
 
 ## Accessibility decisions
 
-Verified with an automated pass (28 checks) driven through the Chrome DevTools
-Protocol, plus manual inspection at three viewport widths in both themes.
+Verified with an automated pass (72 checks) driven through the Chrome DevTools
+Protocol, run against all three pages, plus manual inspection at three viewport
+widths in both themes.
 
 - **Contrast.** Every foreground/background pair in both themes was computed
   against WCAG 2.1 before being committed. Body ink is 14.1:1 on light and 14.6:1
@@ -123,6 +136,17 @@ Protocol, plus manual inspection at three viewport widths in both themes.
   `tabindex="0"`, a role and a label *only while it actually overflows*, so
   keyboard users can pan it (WCAG 2.1.1) without leaving a dead tab stop on wide
   screens.
+- **The project index.** `projects.html` holds the tiles and all four write-ups in
+  one document; `script.js` shows one view at a time. Routing runs off the URL
+  hash rather than by intercepting clicks, so the tiles stay ordinary links — the
+  Back button, opening in a new tab and sharing a link to a single project all keep
+  working. Opening a project moves focus to its heading and updates the document
+  title; going back returns focus to the tile that was opened. With JavaScript off,
+  every write-up simply sits below the tiles that link to it.
+- **The résumé viewer.** Desktop browsers get the PDF embedded in an `<object>`.
+  Most mobile browsers cannot render one inline, so below 62em the stylesheet swaps
+  in pre-rendered page images with full alt text instead of handing phones a blank
+  box. Both routes offer the same download.
 - **The stepper** announces step changes through `aria-live="polite"`, responds to
   arrow keys, and labels each numbered dot with the step's heading. The diagram
   only dims its inactive stages after someone has actually used the controls, so a

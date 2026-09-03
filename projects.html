@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects — Alan Mohan</title>
+<meta name="description" content="Four projects by Alan Mohan: a detector for sentiment-steering attacks on RAG systems, explainable intrusion detection for IoT, the HOPE multi-agent CBT platform, and this site.">
+<meta name="author" content="Alan Mohan">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#EDEFEA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A20" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alanmohan.github.io/projects.html">
+<meta property="og:site_name" content="Alan Mohan">
+<meta property="og:title" content="Projects — Alan Mohan">
+<meta property="og:description" content="Published research on RAG security and explainable intrusion detection, a multi-agent CBT platform, and this site.">
+<meta property="og:image" content="https://alanmohan.github.io/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Alan Mohan, AI engineer — evaluation, interpretability and AI security.">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="canonical" href="https://alanmohan.github.io/projects.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,400..500&display=swap">
+
+<link rel="stylesheet" href="styles.css">
+
+<script>
+document.documentElement.classList.add('js');
+try {
+  var t = localStorage.getItem('am-theme');
+  if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+} catch (e) { /* private mode or storage disabled: fall through to the OS preference */ }
+</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="masthead" id="top">
+  <div class="masthead__inner">
+    <a class="wordmark" href="index.html" aria-label="Alan Mohan — home">
+      <svg class="wordmark__mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path d="M3 24.5H29" class="mark-base"/>
+        <path d="M4 21.5 12 21 16.5 6.5 21 14.5 28 13" class="mark-peak"/>
+      </svg>
+      <span class="wordmark__name">Alan Mohan</span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="nav-toggle__bars" aria-hidden="true"><span></span><span></span></span>
+      <span class="nav-toggle__label">Menu</span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="projects.html" aria-current="page">Projects</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="resume.html">Résumé</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <button class="theme-toggle" type="button" id="theme-toggle">
+      <svg class="theme-toggle__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <rect x="1.5" y="1.5" width="13" height="13" rx="1" class="tt-frame"/>
+        <path d="M8 1.5h6.5v13H8z" class="tt-fill"/>
+      </svg>
+      <span class="theme-toggle__label" id="theme-toggle-label">Dark theme</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <!--
+    Two views in one document. The tile index and the four write-ups are both in
+    the markup; script.js shows one at a time and keeps the URL in step, so a
+    project can be linked to directly. With JavaScript disabled every write-up is
+    simply below the tiles and the tiles are ordinary in-page anchors.
+    (AI assistance: Claude drafted the History API wiring; the no-JS fallback and
+    the focus handling were reworked here.)
+  -->
+  <section class="section section--projects" aria-labelledby="projects-h">
+    <div class="rail">
+      <h1 class="page-title" id="projects-h">Projects</h1>
+      <p class="rail-note">Two published papers, one product, and this site.</p>
+    </div>
+
+    <div class="wide" id="project-index">
+      <p class="lede">
+        Every figure comes from the paper, report or résumé it is attributed to.
+        The diagrams are drawn for this site; none of them are product screenshots.
+      </p>
+
+      <ul class="tiles">
+        <li class="tile">
+          <p class="tile__kind">Published research</p>
+          <h2 class="tile__h"><a href="#rag">Sentiment steering against RAG</a></h2>
+          <p class="tile__desc">Poisoning 0.04% of a retrieval corpus is enough to steer what a language model says about someone. This is the attack, and the detector that catches it.</p>
+          <p class="tile__tech">Python, FAISS, Sentence-Transformers, Llama 3.1</p>
+        </li>
+        <li class="tile">
+          <p class="tile__kind">Published research</p>
+          <h2 class="tile__h"><a href="#ids">Explainable intrusion detection for IoT</a></h2>
+          <p class="tile__desc">An intrusion detection system that shows which features drove the call — and then runs on fifteen of them instead of the full vector.</p>
+          <p class="tile__tech">Python, TensorFlow, Keras, SHAP</p>
+        </li>
+        <li class="tile">
+          <p class="tile__kind">Product</p>
+          <h2 class="tile__h"><a href="#hope">HOPE</a></h2>
+          <p class="tile__desc">Cognitive behavioural therapy delivered by an orchestrated team of agents rather than one chatbot that forgets you between sessions.</p>
+          <p class="tile__tech">PHP, MySQL, OpenAI GPT and Whisper, vector embeddings</p>
+        </li>
+        <li class="tile">
+          <p class="tile__kind">Build</p>
+          <h2 class="tile__h"><a href="#site">This site</a></h2>
+          <p class="tile__desc">Three hand-written pages with no framework and no build step. Original SVG diagrams, light and dark themes, and a small amount of vanilla JavaScript.</p>
+          <p class="tile__tech">HTML, CSS, vanilla JavaScript, inline SVG</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="wide" id="project-details">
+
+      <article class="project" id="rag" aria-labelledby="rag-h">
+      <p class="project__back"><a href="#project-index" data-back>All projects</a></p>
+        <div class="case">
+          <div class="case__head">
+            <h2 class="case__h" id="rag-h" tabindex="-1">Sentiment steering against RAG</h2>
+            <p class="case__meta">
+              <span>Published research</span>
+              <span>First author</span>
+              <span>IEEE ICC 2026</span>
+            </p>
+          </div>
+
+          <div class="case__prose flow">
+            <p class="case__problem">
+              A retrieval-augmented system repeats what is in its corpus. So an attacker
+              who can add a handful of documents can change what the model says about a
+              person or a topic without ever touching the question being asked.
+            </p>
+
+            <h3 class="minor-h">What I did</h3>
+            <p>
+              I built the black-box attack simulation and the detector that answers it.
+              The attack poisons a slice of the corpus with sentiment-shifted passages
+              about public officials; the defence inspects retrieved passages before they
+              ever reach the generator, so it does not depend on which model is
+              generating.
+            </p>
+
+            <h3 class="minor-h">Approach</h3>
+            <p>
+              Passages are embedded with a MiniLM sentence encoder and retrieved through
+              a FAISS index, then generated with Llama&nbsp;3.1. Detection is two
+              independent signals over the retrieved set: cosine similarity, which
+              catches the near-duplicate phrasing that poisoning tends to introduce, and
+              a z-score on the sentiment distribution, which catches passages whose
+              polarity sits outside the corpus baseline. Either signal can flag a
+              passage, which is what keeps recall high.
+            </p>
+
+            <h3 class="minor-h">Why it matters</h3>
+            <p>
+              Retrieval is how most deployed language models get their facts, and a
+              corpus is far easier to edit than a model. The detector works on retrieved
+              passages rather than generations, so it transfers across generators and
+              retrievers instead of being tuned to one stack.
+            </p>
+
+            <dl class="stats">
+              <div class="stat">
+                <dt>Poisoned share of corpus needed</dt>
+                <dd class="figure">0.04%</dd>
+              </div>
+              <div class="stat">
+                <dt>Attack success rate</dt>
+                <dd class="figure">81.26%</dd>
+              </div>
+              <div class="stat">
+                <dt>Polarity flip rate</dt>
+                <dd class="figure">65.21%</dd>
+              </div>
+              <div class="stat stat--key">
+                <dt>Recall on poisoned passages</dt>
+                <dd class="figure">97.75%</dd>
+              </div>
+            </dl>
+
+            <p class="case__tech">
+              <span class="case__tech-k">Built with</span>
+              Python, FAISS, Sentence-Transformers (MiniLM-L6-v2), Llama 3.1,
+              scikit-learn, PyTorch
+            </p>
+
+            <div class="pub-record">
+              <h3 class="minor-h">Publication</h3>
+              <p class="pub__authors">
+                <span class="pub__me">Alan Mohan</span>, Shalaka S. Mahadik, Mithun Mukherjee,
+                Pranav M. Pawar, Raja Muthalagu, Jaime Lloret
+              </p>
+              <p class="pub__venue">
+                <span>ICC 2026 — IEEE International Conference on Communications</span>
+                <span>pp. 1–6</span>
+                <span>May 2026</span>
+              </p>
+              <p class="case__links">
+                <a class="link-strong" href="https://doi.org/10.1109/ICC59461.2026.11588193">Read the paper (DOI)</a>
+                <!-- No public code repository for this project; nothing is guessed here. -->
+              </p>
+            </div>
+          </div>
+
+  <figure class="pipeline" id="rag-pipeline">
+          <svg class="pipeline__svg" viewBox="0 0 720 232" role="img"
+               aria-label="Diagram of a retrieval-augmented generation pipeline: a corpus feeds a retriever, poisoned passages are injected into the corpus, retrieved passages pass through a two-signal detector, and only the passages that clear the detector reach the language model.">
+            <g class="pl-stage" data-stage="1">
+              <rect class="pl-box" x="8" y="60" width="118" height="72" rx="2"/>
+              <text class="pl-title" x="20" y="84">Corpus</text>
+              <text class="pl-sub" x="20" y="102">WikiASP</text>
+              <text class="pl-sub" x="20" y="118">OfficeHolder</text>
+            </g>
+  
+            <g class="pl-stage" data-stage="2">
+              <path class="pl-arrow pl-arrow--inject" d="M67 34V56"/>
+              <rect class="pl-box pl-box--alert" x="8" y="4" width="118" height="30" rx="2"/>
+              <text class="pl-title pl-title--alert" x="20" y="24">Poisoned 0.04%</text>
+            </g>
+  
+            <path class="pl-arrow" d="M126 96H172"/>
+  
+            <g class="pl-stage" data-stage="3">
+              <rect class="pl-box" x="172" y="60" width="126" height="72" rx="2"/>
+              <text class="pl-title" x="184" y="84">Retriever</text>
+              <text class="pl-sub" x="184" y="102">MiniLM-L6-v2</text>
+              <text class="pl-sub" x="184" y="118">FAISS top-k</text>
+            </g>
+  
+            <path class="pl-arrow" d="M298 96H344"/>
+  
+            <g class="pl-stage" data-stage="4">
+              <rect class="pl-box pl-box--focus" x="344" y="40" width="168" height="112" rx="2"/>
+              <text class="pl-title" x="356" y="64">Detector</text>
+              <line class="pl-rule" x1="356" y1="76" x2="500" y2="76"/>
+              <text class="pl-sub" x="356" y="96">cosine similarity</text>
+              <text class="pl-sub" x="356" y="114">sentiment z-score</text>
+              <text class="pl-sub pl-sub--accent" x="356" y="138">97.75% recall</text>
+            </g>
+  
+            <path class="pl-arrow" d="M512 96H566"/>
+            <path class="pl-arrow pl-arrow--drop" d="M428 152V196H352"/>
+            <text class="pl-sub pl-sub--drop" x="344" y="200" text-anchor="end">flagged, dropped</text>
+  
+            <g class="pl-stage" data-stage="5">
+              <rect class="pl-box" x="566" y="60" width="146" height="72" rx="2"/>
+              <text class="pl-title" x="578" y="84">Generator</text>
+              <text class="pl-sub" x="578" y="102">Llama 3.1</text>
+              <text class="pl-sub" x="578" y="118">answer</text>
+            </g>
+          </svg>
+  
+          <figcaption>How the attack and the defence fit together. Original diagram.</figcaption>
+  
+          <div class="stepper" data-stepper data-target="#rag-pipeline">
+            <ol class="stepper__list">
+              <li class="step" data-step="1">
+                <h4>The corpus is the attack surface</h4>
+                <p>Retrieval treats the corpus as ground truth. Nothing in a standard RAG stack asks whether a passage deserves that trust.</p>
+              </li>
+              <li class="step" data-step="2">
+                <h4>0.04% is enough</h4>
+                <p>Poisoning a fraction of a percent of the corpus with sentiment-shifted passages produced an 81.26% attack success rate and flipped polarity on 65.21% of queries.</p>
+              </li>
+              <li class="step" data-step="3">
+                <h4>Retrieval concentrates the damage</h4>
+                <p>Because poisoned passages are written to match the query closely, top-k retrieval pulls them in preferentially. The attacker never has to touch the query.</p>
+              </li>
+              <li class="step" data-step="4">
+                <h4>Two cheap signals catch them</h4>
+                <p>Cosine similarity flags the repetitive phrasing poisoning introduces; a z-score on sentiment flags passages outside the corpus baseline. Together they reach 97.75% recall at about 18.5 seconds per query.</p>
+              </li>
+              <li class="step" data-step="5">
+                <h4>The model never sees them</h4>
+                <p>Filtering happens before generation, so the defence is model-agnostic — swap the generator and it still holds.</p>
+              </li>
+            </ol>
+          </div>
+        </figure>
+        </div>
+      </article>
+
+      <article class="project" id="ids" aria-labelledby="ids-h">
+      <p class="project__back"><a href="#project-index" data-back>All projects</a></p>
+        <div class="case">
+          <div class="case__head">
+            <h2 class="case__h" id="ids-h" tabindex="-1">Explainable intrusion detection for IoT</h2>
+            <p class="case__meta">
+              <span>Published research</span>
+              <span>Third of five authors</span>
+              <span>Computers and Electrical Engineering</span>
+            </p>
+          </div>
+
+          <div class="case__prose flow">
+            <p class="case__problem">
+              An intrusion detection system that flags traffic without saying why cannot
+              be acted on. A network administrator needs to know which features drove the
+              call before shutting down a device.
+            </p>
+
+            <h3 class="minor-h">What I did</h3>
+            <p>
+              I built and evaluated the deep classifiers and the SHAP-driven feature
+              selection step. The useful finding was not the accuracy — it was that the
+              explanations were good enough to act on: the fifteen features SHAP ranked
+              highest were sufficient on their own.
+            </p>
+
+            <h3 class="minor-h">Approach</h3>
+            <p>
+              One-dimensional CNN, LSTM and Bi-LSTM classifiers, trained across four
+              benchmark datasets so the result would not be an artefact of one capture:
+              NSL-KDD, UNSW-NB15, TON-IoT and X-IIoTID. SMOTE handles the class imbalance
+              that makes rare attacks look like noise. SHAP then produces global and
+              local explanations, and retraining on only the top fifteen features tests
+              whether those explanations are faithful.
+            </p>
+
+            <h3 class="minor-h">Why it matters</h3>
+            <p>
+              A model that needs the full feature vector cannot run on the hardware IoT
+              networks actually use. The fifteen-feature subset detected attacks including
+              denial of service, ransomware and cross-site scripting above 92% accuracy on
+              every one of the four datasets — evidence that the explanations were
+              faithful, not decorative.
+            </p>
+
+
+              <dl class="stats">
+                <div class="stat">
+                  <dt>Accuracy across four datasets</dt>
+                  <dd class="figure">up to 99%</dd>
+                </div>
+                <div class="stat">
+                  <dt>NSL-KDD, reduced features</dt>
+                  <dd class="figure">98.21%</dd>
+                </div>
+                <div class="stat">
+                  <dt>Features retained of the full set</dt>
+                  <dd class="figure">15</dd>
+                </div>
+                <div class="stat stat--key">
+                  <dt>TON-IoT training time</dt>
+                  <dd class="figure">−90%</dd>
+                </div>
+              </dl>
+
+            <p class="case__tech">
+              <span class="case__tech-k">Built with</span>
+              Python, TensorFlow, Keras, SHAP, LIME, imbalanced-learn, pandas, NumPy
+            </p>
+
+            <div class="pub-record">
+              <h3 class="minor-h">Publication</h3>
+              <p class="pub__authors">
+                Sapna Sadhwani, Ameya Navare, <span class="pub__me">Alan Mohan</span>,
+                Raja Muthalagu, Pranav M. Pawar
+              </p>
+              <p class="pub__venue">
+                <span>Computers and Electrical Engineering (Elsevier)</span>
+                <span>vol. 123, art. 110256</span>
+                <span>April 2025</span>
+              </p>
+              <p class="case__links">
+                <a class="link-strong" href="https://doi.org/10.1016/j.compeleceng.2025.110256">Read the paper (DOI)</a>
+                <!-- PENDING LINK: a code repository exists for this project but no URL was
+                     supplied. Add it here as another .link-strong anchor. -->
+              </p>
+            </div>
+          </div>
+
+
+  <figure class="diagram">
+          <svg class="diagram__svg" viewBox="0 0 720 300" role="img"
+               aria-label="Diagram of the explainable intrusion detection workflow. Four benchmark datasets feed SMOTE balancing, then CNN, LSTM and Bi-LSTM classifiers, then SHAP explanation, which selects the fifteen highest-ranked features; the classifiers are then retrained on those features alone. A bar comparison shows TON-IoT training time falling from 37,486 seconds on the full feature set to 3,794 seconds on fifteen features.">
+            <g>
+              <text class="dg-label" x="8" y="26">Four benchmark datasets</text>
+              <g class="dg-list">
+                <text class="dg-item" x="8" y="52">NSL-KDD</text>
+                <text class="dg-item" x="8" y="72">UNSW-NB15</text>
+                <text class="dg-item" x="8" y="92">TON-IoT</text>
+                <text class="dg-item" x="8" y="112">X-IIoTID</text>
+              </g>
+              <path class="dg-brace" d="M126 40V118"/>
+            </g>
+  
+            <path class="dg-arrow" d="M132 79H176"/>
+  
+            <rect class="dg-box" x="176" y="58" width="104" height="42" rx="2"/>
+            <text class="dg-title" x="188" y="84">SMOTE</text>
+  
+            <path class="dg-arrow" d="M280 79H324"/>
+  
+            <rect class="dg-box" x="324" y="42" width="126" height="74" rx="2"/>
+            <text class="dg-title" x="336" y="64">Classifiers</text>
+            <text class="dg-sub" x="336" y="84">1D-CNN, LSTM</text>
+            <text class="dg-sub" x="336" y="102">Bi-LSTM</text>
+  
+            <path class="dg-arrow" d="M450 79H494"/>
+  
+            <rect class="dg-box dg-box--focus" x="494" y="42" width="124" height="74" rx="2"/>
+            <text class="dg-title" x="506" y="64">SHAP</text>
+            <text class="dg-sub" x="506" y="84">global + local</text>
+            <text class="dg-sub" x="506" y="102">attributions</text>
+  
+            <path class="dg-arrow" d="M618 79H650"/>
+            <rect class="dg-box dg-box--focus" x="650" y="58" width="62" height="42" rx="2"/>
+            <text class="dg-title dg-title--accent" x="681" y="84" text-anchor="middle">top 15</text>
+  
+            <!-- retrain loop, routed below the flow so it crosses nothing -->
+            <path class="dg-arrow dg-arrow--loop" d="M684 100V140H387V118"/>
+            <text class="dg-sub dg-sub--loop" x="535" y="133" text-anchor="middle">retrain on 15 features only</text>
+  
+            <!-- Reported seconds, drawn to scale: 3,794 is 10.1% of 37,486. -->
+            <g>
+              <line class="dg-rule" x1="8" y1="178" x2="712" y2="178"/>
+              <text class="dg-label" x="8" y="204">TON-IoT training time</text>
+  
+              <text class="dg-bar-label" x="200" y="200">full feature set</text>
+              <rect class="dg-bar" x="200" y="208" width="420" height="16"/>
+              <text class="dg-bar-value" x="632" y="221">37,486 s</text>
+  
+              <text class="dg-bar-label" x="200" y="248">top 15 features</text>
+              <rect class="dg-bar dg-bar--accent" x="200" y="256" width="43" height="16"/>
+              <text class="dg-bar-value dg-bar-value--accent" x="255" y="269">3,794 s</text>
+  
+              <text class="dg-bar-note" x="200" y="292">Bars to scale. Detection accuracy held.</text>
+            </g>
+          </svg>
+          <figcaption>Explanations used as a feature-selection step, then tested by retraining. Original diagram.</figcaption>
+        </figure>
+        </div>
+      </article>
+
+      <article class="project" id="hope" aria-labelledby="hope-h">
+      <p class="project__back"><a href="#project-index" data-back>All projects</a></p>
+        <div class="case">
+          <div class="case__head">
+            <h2 class="case__h" id="hope-h" tabindex="-1">HOPE</h2>
+            <p class="case__meta">
+              <span>Product</span>
+              <span>Lead developer</span>
+              <span>Multi-agent CBT platform</span>
+            </p>
+          </div>
+
+          <div class="case__prose flow">
+            <p class="case__problem">
+              Cognitive behavioural therapy works and costs more than most people can
+              pay. Most software answers to that are a single chatbot that forgets you
+              between sessions.
+            </p>
+
+            <h3 class="minor-h">What I did</h3>
+            <p>
+              I designed HOPE as an orchestrated team of agents rather than one prompt.
+              A session coordinator decides which stage of a CBT session the
+              conversation is in and hands off to specialists: a memory extractor that
+              parses each message into thought patterns, therapy goals and session
+              insights; a reply drafter grounded in a library of cognitive distortions
+              and homework exercises; and a crisis detector that reads every inbound
+              message for self-harm indicators before any reply is generated.
+            </p>
+
+            <h3 class="minor-h">Approach</h3>
+            <p>
+              Long-term context lives in a vector store, with a rolling summary keeping
+              sessions coherent without paying for the whole transcript on every turn.
+              The crisis check sits in the message pipeline rather than in the model
+              prompt, so it cannot be talked around.
+            </p>
+
+            <dl class="stats">
+              <div class="stat">
+                <dt>Monthly active users</dt>
+                <dd class="figure">60+</dd>
+              </div>
+              <div class="stat stats--inline">
+                <dt>Backing</dt>
+                <dd>GDSC Solution Challenge selection; Microsoft for Startups</dd>
+              </div>
+            </dl>
+
+            <p class="case__tech">
+              <span class="case__tech-k">Built with</span>
+              PHP, MySQL, OpenAI GPT and Whisper, vector embeddings, Heroku
+            </p>
+            <p class="case__note">No public repository or live instance; the platform is not open source.</p>
+          </div>
+
+  <figure class="diagram diagram--compact">
+            <svg class="diagram__svg" viewBox="0 0 420 300" role="img"
+                 aria-label="Diagram of the HOPE architecture. An inbound message passes through a crisis detector to a CBT session coordinator, which delegates to a conversation-stage analyser, a memory extractor and a reply drafter. Those agents read from and write to a vector store holding thought patterns, therapy goals and session insights.">
+              <text class="dg-sub" x="8" y="22">message in</text>
+              <path class="dg-arrow" d="M36 30V52H84"/>
+  
+              <rect class="dg-box dg-box--alert" x="84" y="36" width="150" height="32" rx="2"/>
+              <text class="dg-title dg-title--alert" x="96" y="57">Crisis detector</text>
+  
+              <path class="dg-arrow" d="M159 68V92"/>
+  
+              <rect class="dg-box dg-box--focus" x="84" y="92" width="150" height="52" rx="2"/>
+              <text class="dg-title" x="96" y="114">Session</text>
+              <text class="dg-title" x="96" y="132">coordinator</text>
+  
+              <path class="dg-arrow" d="M234 106H262"/>
+              <path class="dg-arrow" d="M234 120H262"/>
+              <path class="dg-arrow" d="M234 134H262"/>
+              <text class="dg-item" x="268" y="110">stage analyser</text>
+              <text class="dg-item" x="268" y="124">memory extractor</text>
+              <text class="dg-item" x="268" y="138">reply drafter</text>
+  
+              <path class="dg-arrow dg-arrow--loop" d="M312 144V186H120V204"/>
+              <text class="dg-sub dg-sub--loop" x="126" y="177">read and write</text>
+  
+              <rect class="dg-box" x="8" y="204" width="170" height="84" rx="2"/>
+              <text class="dg-title" x="20" y="226">Vector memory</text>
+              <text class="dg-sub" x="20" y="246">thought patterns</text>
+              <text class="dg-sub" x="20" y="262">therapy goals</text>
+              <text class="dg-sub" x="20" y="278">session insights</text>
+            </svg>
+            <figcaption>Orchestrator and specialists. Original diagram.</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="project" id="site" aria-labelledby="site-h">
+      <p class="project__back"><a href="#project-index" data-back>All projects</a></p>
+        <div class="case">
+          <div class="case__head">
+            <h2 class="case__h" id="site-h" tabindex="-1">This site</h2>
+            <p class="case__meta">
+              <span>Build</span>
+              <span>Designed and built it</span>
+              <span>2026</span>
+            </p>
+          </div>
+
+          <div class="case__prose flow">
+            <p class="case__problem">
+              I needed somewhere to publish work that a technical reader could check
+              rather than take on trust.
+            </p>
+
+            <h3 class="minor-h">What I did</h3>
+            <p>
+              Three hand-written pages of semantic HTML, one stylesheet built on a
+              custom-property design system, and a small amount of vanilla JavaScript
+              for the theme toggle, the mobile menu, the project index you just came
+              through, and the pipeline explainer above. Every diagram is inline SVG I
+              drew, so it inherits the theme instead of shipping as a second set of
+              images.
+            </p>
+
+            <h3 class="minor-h">Approach</h3>
+            <p>
+              No framework, no build step, no dependency beyond two webfonts. The
+              typographic rule underneath it: the serif makes claims, the monospace
+              holds facts you can check. Everything JavaScript does is an enhancement —
+              with it disabled the navigation is fully expanded, every project write-up
+              is on the page, and the theme follows the operating system. Built with AI
+              assistance, logged in full in the repository's prompt log.
+            </p>
+
+            <dl class="stats">
+              <div class="stat">
+                <dt>Runtime dependencies</dt>
+                <dd class="figure">0</dd>
+              </div>
+              <div class="stat">
+                <dt>All HTML, CSS and JS, gzipped</dt>
+                <dd class="figure">16&nbsp;KB</dd>
+              </div>
+            </dl>
+
+            <p class="case__tech">
+              <span class="case__tech-k">Built with</span>
+              HTML, CSS custom properties and grid, vanilla JavaScript, inline SVG, GitHub Pages
+            </p>
+            <p class="case__links">
+              <a class="link-strong" href="https://github.com/alanmohan/alanmohan.github.io">Source on GitHub</a>
+            </p>
+          </div>
+
+  <figure class="diagram diagram--compact shot">
+            <picture>
+              <source type="image/webp" srcset="assets/portfolio-screenshot-800.webp 800w, assets/portfolio-screenshot-1200.webp 1200w" sizes="(min-width: 62em) 26rem, 90vw">
+              <img src="assets/portfolio-screenshot-1200.png"
+                 srcset="assets/portfolio-screenshot-800.png 800w, assets/portfolio-screenshot-1200.png 1200w"
+                 sizes="(min-width: 62em) 26rem, 90vw"
+                 width="1200" height="750"
+                 alt="Screenshot of this site's home page: the name Alan Mohan set large in a serif face beside a portrait photograph, with a short statement of focus beneath it."
+                 loading="lazy" decoding="async">
+            </picture>
+            <figcaption>This page, photographed from the browser at 1440&nbsp;px.</figcaption>
+          </figure>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="footer-slim">
+  <p>© 2026 Alan Mohan. <a href="index.html#colophon">Credits and colophon</a></p>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
