@@ -36,8 +36,8 @@ Then visit <http://127.0.0.1:8113/>. Stop it with Ctrl-C.
 
 ```
 .
-├── index.html                     home: introduction, portrait, project tiles,
-│                                  experience, contact, references
+├── index.html                     home: introduction, portrait, skills, project
+│                                  tiles, experience, contact, references
 ├── projects.html                  the four project write-ups
 ├── resume.html                    the résumé in an inline viewer, with a download
 ├── styles.css                     design tokens and layout for all three pages
@@ -114,7 +114,7 @@ reveals and no hover transforms.
 
 ## Accessibility decisions
 
-Verified with an automated pass (87 checks) driven through the Chrome DevTools
+Verified with an automated pass (88 checks) driven through the Chrome DevTools
 Protocol, run against all three pages, plus manual inspection at three viewport
 widths in both themes.
 

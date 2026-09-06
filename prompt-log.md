@@ -1,24 +1,3 @@
-# Prompt log — Project 1, Personal Portfolio Website
-
-15-113 Effective Coding with AI. This file is the required record of AI use for
-this project.
-
-**What is in here.** The initiating prompt is recorded verbatim below, exactly as
-it was sent. Space is reserved beneath it for the assistant's replies and for
-every later exchange. Nothing in this file is summarised, paraphrased or
-reconstructed: any section still marked *not yet pasted* is empty because the
-text has not been copied in yet, not because it did not happen.
-
-**Tool used.** Claude Code (Claude Opus 5), run from the Claude desktop app, with
-the project folder as its working directory.
-
-**How to keep this file.** After each exchange, paste the prompt under a new
-`## Prompt N` heading and the assistant's reply under the matching
-`## Response N` heading. Paste the conversational text only — attached files and
-generated source do not need to be duplicated here.
-
----
-
 ## Prompt 1 — initiating prompt (verbatim, 3 September 2026)
 
 ```text

@@ -121,13 +121,6 @@ try {
           someone attacks it. In practice that means agent evaluation,
           interpretability and generative-AI security.
         </p>
-        <p>
-          Mostly in Python — PyTorch and HuggingFace for models, LangChain and
-          vector databases for retrieval, SHAP for explanations, and Flask,
-          Docker and AWS or GCP for the parts that have to run somewhere. Two
-          peer-reviewed publications, and internships across banking, enterprise
-          IT and health technology.
-        </p>
       </div>
       <p class="hero__actions">
         <a class="link-strong" href="projects.html">View projects</a>
@@ -150,18 +143,35 @@ try {
   </section>
 
 
+
+  <!-- ============================ SKILLS ============================ -->
+  <section class="section" id="skills" aria-labelledby="skills-h">
+    <div class="rail">
+      <h2 class="section__h" id="skills-h">Skills</h2>
+    </div>
+
+    <dl class="skills wide">
+      <div class="skills__row">
+        <dt>Programming</dt>
+        <dd>Python (primary), Java, JavaScript, PHP, C/C++, SQL</dd>
+      </div>
+      <div class="skills__row">
+        <dt>AI/ML and generative AI</dt>
+        <dd>Generative AI, large language models (LLM), prompt engineering, explainable AI (XAI), PyTorch, Keras, LangChain, vector databases, retrieval-augmented generation (RAG), HuggingFace, MCP, LLM interpretability, LLM evals</dd>
+      </div>
+      <div class="skills__row">
+        <dt>Cloud infrastructure</dt>
+        <dd>AWS, GCP, Docker, CI/CD, Git, Linux, Flask</dd>
+      </div>
+    </dl>
+  </section>
+
   <!-- ============================ PROJECTS ============================ -->
   <!-- The index lives here; each tile opens its full write-up on projects.html. -->
   <section class="section" id="projects" aria-labelledby="proj-h">
     <div class="rail">
       <h2 class="section__h" id="proj-h">Projects</h2>
-      <p class="rail-note">Two published papers, one product, and this site.</p>
     </div>
-
-    <p class="flow lede">
-        Every figure comes from the paper, report or résumé it is attributed to.
-        The diagrams are drawn for this site; none of them are product screenshots.
-      </p>
 
         <ul class="tiles wide">
           <li class="tile">
@@ -194,22 +204,13 @@ try {
   <!-- ============================ EXPERIENCE ============================ -->
   <section class="section" id="experience" aria-labelledby="exp-h">
     <div class="rail">
-      <h2 class="section__h" id="exp-h">Experience</h2>
-      <p class="rail-note">Employer work is described only to the level already public in my résumé.</p>
+      <h2 class="section__h" id="exp-h">Experience</h2> 
     </div>
 
     <ol class="timeline wide">
       <li class="role">
         <p class="role__when"><span>May 2026 – August 2026</span><span>Pittsburgh, PA</span></p>
         <h3 class="role__h">AI Intern<span class="role__org">Bank of New York</span></h3>
-        <p>
-          I built the agent-evaluation platform for the firm's AI Hub, so that
-          judging an agent stopped being a manual, one-off exercise. The evaluation
-          engine carries more than thirty metrics — RAGAS, LLM-as-a-judge, and
-          multi-turn agent measures for goal completion, knowledge retention and
-          tool-use accuracy — behind a single workflow covering dataset management,
-          synthetic test-case generation, online evaluation and performance analysis.
-        </p>
       </li>
 
       <li class="role">
@@ -260,11 +261,6 @@ try {
       <h2 class="section__h" id="con-h">Contact</h2>
     </div>
     <div class="flow contact">
-      <p class="contact__invite">
-        If you are working on agent evaluation, interpretability, or the security of
-        retrieval systems — or you think one of the results on this site is wrong —
-        I would like to hear about it. Email reaches me fastest.
-      </p>
       <ul class="contact__list">
         <li>
           <span class="contact__k">Email</span>
@@ -288,10 +284,7 @@ try {
 </main>
 
 <!-- ============================ REFERENCES ============================ -->
-<!-- Only work that is not mine: the two webfonts, the photograph, and the AI
-     assistance used to build the site. Everything else here — the CSS, the
-     JavaScript, the SVG diagrams and the writing — is original, so it is not
-     listed. -->
+<!-- Used AI (claude code with opus 5) for designing the website, writing the code, generating SVG diagrams. Layout and content are original. -->
 <footer class="colophon" id="references">
   <div class="rail">
     <h2 class="section__h">References</h2>
@@ -303,12 +296,8 @@ try {
         <dd>Newsreader by Production Type and IBM Plex Mono by IBM, both under the <a href="https://openfontlicense.org/">SIL Open Font License</a>, served by <a href="https://fonts.google.com/">Google Fonts</a>.</dd>
       </div>
       <div>
-        <dt>Portrait</dt>
-        <dd>Photograph by Sally Maxson, © Carnegie Mellon University, from the Information Networking Institute student portrait session, 2025. Cropped for this site.</dd>
-      </div>
-      <div>
         <dt>AI assistance</dt>
-        <dd>Built with <a href="https://claude.ai/">Claude</a> (Anthropic). Where it shaped the architecture, the visual system, the responsive layout, the JavaScript or the accessibility work, the code says so in a comment; the full prompt log is in the repository.</dd>
+        <dd>Built with <a href="https://claude.ai/">Claude Code</a> (Anthropic). Significant use is marked in code comments; the full prompt log is in the repository.</dd>
       </div>
     </dl>
     <p class="colophon__foot">© 2026 Alan Mohan. <a href="#top">Back to top</a></p>

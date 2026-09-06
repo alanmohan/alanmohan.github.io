@@ -431,6 +431,22 @@ figcaption {
 .portrait figcaption { color: var(--ink-muted); margin-top: var(--s-3); }
 
 /* -----------------------------------------------------------------------------
+   Skills — three groups, matching the way the résumé groups them
+   -------------------------------------------------------------------------- */
+.skills { display: grid; border-top: 1px solid var(--rule); }
+.skills__row {
+  display: grid;
+  gap: var(--s-1) var(--s-5);
+  padding-block: var(--s-4);
+  border-bottom: 1px solid var(--rule);
+}
+@media (min-width: 48em) {
+  .skills__row { grid-template-columns: 13rem minmax(0, 1fr); }
+}
+.skills dt { font-family: var(--font-mono); font-size: var(--t-sm); color: var(--ink-muted); }
+.skills dd { color: var(--ink); line-height: var(--lh-body); max-width: 62ch; }
+
+/* -----------------------------------------------------------------------------
    8. Projects — the tile index and the write-ups it opens
    -------------------------------------------------------------------------- */
 .page-title {
