@@ -1,0 +1,17 @@
+node_modules/
+coverage/
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+*.local
+.DS_Store
+
+# vendor/ is deliberately committed: it is what makes the game run on a static
+# host with no build step and no install.
+.idea/
+.vscode/*
+!.vscode/extensions.json
+npm-debug.log*
+yarn-error.log*
+DEVELOPMENT.md

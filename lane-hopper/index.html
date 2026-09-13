@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Lane Hopper - an original endless road-crossing game. Hop across roads, rivers and railways for as long as you can."
+    />
+    <title>Lane Hopper</title>
+
+    <!--
+      Everything below uses relative paths and native ES modules, so the game
+      runs from any static host, including a GitHub Pages project subpath, with
+      no build step and nothing to configure.
+    -->
+    <link rel="stylesheet" href="./src/styles.css" />
+    <link rel="modulepreload" href="./vendor/three/three.module.js" />
+    <link rel="modulepreload" href="./vendor/three/three.core.js" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- WebGL canvas is appended here by the renderer -->
+      <div id="scene" aria-hidden="true"></div>
+
+      <!-- ================= Fatal error notice ================= -->
+      <div id="fatal-error" class="overlay overlay--solid" role="alert" hidden>
+        <div class="panel panel--narrow">
+          <h1 class="panel__title">Unable to start Lane&nbsp;Hopper</h1>
+          <p id="fatal-error-message" class="panel__body">
+            This browser or device could not start the 3D graphics needed to run the game.
+          </p>
+          <p class="panel__body panel__body--muted">
+            Try a current version of Chrome, Edge, Firefox or Safari on a desktop computer, and make
+            sure hardware acceleration is enabled.
+          </p>
+        </div>
+      </div>
+
+      <!-- ================= Title screen ================= -->
+      <div
+        id="title-screen"
+        class="overlay overlay--solid"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="title-heading"
+        hidden
+      >
+        <div class="panel">
+          <p class="panel__eyebrow">Endless crossing</p>
+          <h1 id="title-heading" class="panel__title panel__title--hero">
+            Lane<span class="panel__title-accent">Hopper</span>
+          </h1>
+          <p class="panel__body">
+            Guide <strong>Pip</strong> forward across busy roads, drifting rivers and fast railways.
+            Every lane you clear counts. One mistake ends the run.
+          </p>
+
+          <button id="btn-start" class="button button--primary" type="button">
+            Start run
+            <span class="button__hint">Enter / Space</span>
+          </button>
+
+          <dl class="controls">
+            <div class="controls__row">
+              <dt class="controls__action">Move</dt>
+              <dd class="controls__keys">
+                <kbd>&uarr;</kbd><kbd>&larr;</kbd><kbd>&darr;</kbd><kbd>&rarr;</kbd>
+                <span class="controls__or">or</span>
+                <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>
+              </dd>
+            </div>
+            <div class="controls__row">
+              <dt class="controls__action">Pause</dt>
+              <dd class="controls__keys"><kbd>Esc</kbd><span class="controls__or">or</span><kbd>P</kbd></dd>
+            </div>
+            <div class="controls__row">
+              <dt class="controls__action">Restart</dt>
+              <dd class="controls__keys">
+                <kbd>Enter</kbd><span class="controls__or">or</span><kbd>Space</kbd
+                ><span class="controls__or">or</span><kbd>R</kbd>
+              </dd>
+            </div>
+            <div class="controls__row">
+              <dt class="controls__action">Shield</dt>
+              <dd class="controls__keys"><kbd>F</kbd></dd>
+            </div>
+            <div class="controls__row">
+              <dt class="controls__action">Mute</dt>
+              <dd class="controls__keys"><kbd>M</kbd></dd>
+            </div>
+          </dl>
+
+          <p class="panel__body panel__body--muted">
+            Past 15 points, look out for a hovering shield token. Collect it for a charge, then
+            press <kbd>F</kbd> to raise a shield that turns away traffic and trains for four
+            seconds. Water, the edge of the crossing and falling behind still end the run.
+          </p>
+
+          <div class="panel__footer">
+            <p class="panel__meta">
+              Best score <strong><span id="title-best" data-testid="title-best">0</span></strong>
+            </p>
+            <button
+              id="btn-title-mute"
+              class="button button--ghost button--compact"
+              type="button"
+              aria-pressed="false"
+            >
+              <span class="button__icon" aria-hidden="true">&#9834;</span>
+              Sound: <span id="title-mute-state">on</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= HUD ================= -->
+      <div id="hud" class="hud" hidden>
+        <div class="hud__scores">
+          <div class="hud__score">
+            <span class="hud__label" id="hud-score-label">Score</span>
+            <output
+              class="hud__value"
+              id="hud-score"
+              data-testid="hud-score"
+              aria-labelledby="hud-score-label"
+              >0</output
+            >
+          </div>
+          <div class="hud__score hud__score--secondary">
+            <span class="hud__label" id="hud-best-label">Best</span>
+            <output class="hud__value" id="hud-best" aria-labelledby="hud-best-label">0</output>
+          </div>
+
+          <!--
+            Shield indicator. The charge pips are written by the UI controller
+            from the configured maximum, so the count is never duplicated here.
+            Charges are spelled out in the pip group's label and the state is
+            spelled out in words, so nothing is conveyed by colour alone.
+          -->
+          <div class="hud__score hud__score--shield" id="hud-shield" data-testid="hud-shield">
+            <span class="hud__label" id="hud-shield-label">Shield <kbd>F</kbd></span>
+            <span
+              class="hud__pips"
+              id="hud-shield-charges"
+              data-testid="hud-shield-charges"
+              role="img"
+              aria-label="No shield charges"
+            ></span>
+            <span class="hud__shield-status" id="hud-shield-status" data-testid="hud-shield-status"
+              >None held</span
+            >
+            <span class="hud__meter" id="hud-shield-meter" hidden>
+              <span class="hud__meter-fill" id="hud-shield-fill"></span>
+            </span>
+          </div>
+        </div>
+
+        <div class="hud__actions">
+          <button id="btn-mute" class="button button--icon" type="button" aria-pressed="false">
+            <span class="button__icon" aria-hidden="true">&#9834;</span>
+            <span class="button__label">Sound: <span id="hud-mute-state">on</span></span>
+          </button>
+          <button id="btn-pause" class="button button--icon" type="button">
+            <span class="button__icon" aria-hidden="true">&#10073;&#10073;</span>
+            <span class="button__label">Pause <kbd>Esc</kbd></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= Pause overlay ================= -->
+      <div
+        id="pause-overlay"
+        class="overlay overlay--scrim"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="pause-heading"
+        hidden
+      >
+        <div class="panel panel--narrow">
+          <h2 id="pause-heading" class="panel__title">Paused</h2>
+          <p class="panel__body panel__body--muted">The world is frozen. Nothing can reach Pip.</p>
+          <div class="panel__actions">
+            <button id="btn-resume" class="button button--primary" type="button">
+              Resume<span class="button__hint">Esc</span>
+            </button>
+            <button id="btn-pause-restart" class="button" type="button">
+              Restart<span class="button__hint">R</span>
+            </button>
+            <button id="btn-pause-menu" class="button button--ghost" type="button">Main menu</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= Game over overlay ================= -->
+      <div
+        id="gameover-overlay"
+        class="overlay overlay--scrim"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="gameover-heading"
+        data-testid="gameover"
+        hidden
+      >
+        <div class="panel panel--narrow">
+          <h2 id="gameover-heading" class="panel__title">Run over</h2>
+          <p id="gameover-cause" class="panel__body" data-testid="gameover-cause">&nbsp;</p>
+
+          <p id="gameover-record" class="badge" data-testid="gameover-record" hidden>
+            <span aria-hidden="true">&#9733;</span> New personal best
+          </p>
+
+          <dl class="results">
+            <div class="results__row">
+              <dt class="results__label">Score</dt>
+              <dd class="results__value" id="gameover-score" data-testid="gameover-score">0</dd>
+            </div>
+            <div class="results__row">
+              <dt class="results__label">Best</dt>
+              <dd class="results__value" id="gameover-best" data-testid="gameover-best">0</dd>
+            </div>
+          </dl>
+
+          <div class="panel__actions">
+            <button id="btn-restart" class="button button--primary" type="button" data-testid="restart">
+              Run again<span class="button__hint">Enter / Space / R</span>
+            </button>
+            <button id="btn-menu" class="button button--ghost" type="button">Main menu</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= Development debug panel ================= -->
+      <div id="debug-panel" class="debug" hidden></div>
+
+      <!-- Screen reader announcements for state changes -->
+      <p id="live-region" class="visually-hidden" role="status" aria-live="polite"></p>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

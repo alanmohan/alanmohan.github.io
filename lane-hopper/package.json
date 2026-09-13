@@ -1,0 +1,24 @@
+{
+  "name": "lane-hopper",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Lane Hopper - an original endless road-crossing game. Plain ES modules, no build step.",
+  "license": "MIT",
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "serve": "node tools/serve.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "vendor": "node tools/vendor.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "three": "0.186.0",
+    "vitest": "3.2.7"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}
