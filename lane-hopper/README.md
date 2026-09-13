@@ -24,9 +24,9 @@ recharge is still to run. Charges do not carry over: they are cleared when a run
 - **ChatGPT — GPT-5.6 Sol (medium):** used to produce the detailed implementation specification in `SPEC.md`.
 - **Kiro — Claude Opus 5 (Max effort):** used to read that specification, plan, and implement the game.
 
-The development approach was to start from a detailed specification, have Kiro implement the game against it, then use focused follow-up prompts to address sound and convert the project to plain HTML, CSS, and JavaScript suitable for GitHub Pages. The complete record of the important prompts is in [prompt_log.md](prompt_log.md).
+The development approach was to start from a detailed specification which I generated with the help of ChatGPT (GPT-5.6 sol). Once I had a detailed spec document ready, I had Kiro implement the game against it, then used follow-up prompts to fix minor issues and add the shield power-up feature. The complete record of the prompts are in [prompt_log.md](prompt_log.md).
 
-Note: Kiro initially implemented the game in react. I wasn't initially familar with the constraint of building it only using html/css/JS. I later asked Kiro to remove the react dependency and convert it to a static HTML/CSS/JS project. The prompt log reflects this step.
+Note: Kiro initially implemented the game in react. I wasn't initially aware with the constraint of building it only using html/css/JS. I later asked Kiro to remove the react dependency and convert it to a static HTML/CSS/JS project. The prompt log reflects this step.
 
 ## Known issues or unfinished work
 
