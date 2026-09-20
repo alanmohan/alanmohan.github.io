@@ -486,6 +486,8 @@ figcaption {
 .tile__h a::after { content: ""; position: absolute; inset: 0; }
 .tile__desc { margin-top: var(--s-3); color: var(--ink-muted); text-wrap: pretty; }
 .tile__tech { margin-top: var(--s-4); color: var(--ink-muted); }
+.tile__code { position: relative; z-index: 1; margin-top: var(--s-2); }
+.tile__code a { color: var(--accent); font-size: var(--t-sm); }
 
 .tile:hover { border-top-color: var(--accent); }
 .tile:hover .tile__h a { color: var(--accent); }

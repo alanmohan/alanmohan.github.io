@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore recent street-level crime patterns around UK destinations with an interactive heatmap.">
+  <title>CityLens — Recent crime patterns for UK travellers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- AI assistance: OpenAI Codex helped design, implement, and test this coursework project. -->
+  <a class="skip-link" href="#results">Skip to results</a>
+
+  <header class="site-header">
+    <a class="brand" href="../index.html" aria-label="Return to Alan Mohan's portfolio">
+      <span class="brand__mark" aria-hidden="true">C</span>
+      <span>CityLens</span>
+    </a>
+    <a class="portfolio-link" href="../index.html#projects">Alan’s portfolio <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero__copy">
+        <p class="eyebrow">Traveller awareness · England, Wales &amp; Northern Ireland</p>
+        <h1 id="page-title">See recent crime patterns before you choose where to stay.</h1>
+        <p class="hero__intro">Search a city or neighbourhood in England, Wales, or Northern Ireland to explore the latest 12 months of police-recorded, street-level incidents. CityLens turns public data into a heatmap, a category breakdown, and a list of higher-activity approximate locations.</p>
+      </div>
+
+      <form class="search" id="search-form" novalidate>
+        <label for="place-input">Destination</label>
+        <div class="search__row">
+          <input id="place-input" name="place" type="search" placeholder="Try London, Manchester or Cardiff" autocomplete="off" required>
+          <button type="submit">Explore area</button>
+        </div>
+        <p class="search__hint">Quick examples:
+          <button class="text-button" type="button" data-place="London">London</button>,
+          <button class="text-button" type="button" data-place="Birmingham">Birmingham</button>,
+          <button class="text-button" type="button" data-place="Cardiff">Cardiff</button>
+        </p>
+      </form>
+
+      <div class="scope-note" role="note">
+        <strong>Coverage note</strong>
+        <p>No free, keyless source provides comparable street-level crime data worldwide. This prototype uses the official Police.uk API, covering England, Wales, and Northern Ireland. Scotland is excluded because only British Transport Police data is available there.</p>
+      </div>
+    </section>
+
+    <section class="results" id="results" aria-labelledby="results-title">
+      <div class="results__head">
+        <div>
+          <p class="eyebrow">Latest 12 months of police data</p>
+          <h2 id="results-title">Search a destination to begin</h2>
+        </div>
+        <p class="status" id="status" role="status" aria-live="polite">The map is ready.</p>
+      </div>
+
+      <div class="map-shell">
+        <div id="map" aria-label="Interactive crime incident heatmap"></div>
+        <div class="legend" aria-hidden="true">
+          <span>Lower activity</span>
+          <span class="legend__bar"></span>
+          <span>Higher activity</span>
+        </div>
+      </div>
+
+      <div class="stats" id="stats" aria-label="Crime summary statistics">
+        <article class="stat-card">
+          <p>Recorded incidents</p>
+          <strong id="total-stat">—</strong>
+        </article>
+        <article class="stat-card">
+          <p>Most common category</p>
+          <strong id="category-stat">—</strong>
+        </article>
+        <article class="stat-card">
+          <p>Approximate locations</p>
+          <strong id="location-stat">—</strong>
+        </article>
+        <article class="stat-card">
+          <p>Reporting period</p>
+          <strong id="month-stat">—</strong>
+        </article>
+      </div>
+
+      <div class="analysis-grid">
+        <section class="panel" aria-labelledby="breakdown-title">
+          <div class="panel__head">
+            <div>
+              <p class="eyebrow">What was reported</p>
+              <h2 id="breakdown-title">Crime categories</h2>
+            </div>
+          </div>
+          <div class="bars" id="category-bars">
+            <p class="empty-state">Category statistics will appear after a search.</p>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="areas-title">
+          <div class="panel__head">
+            <div>
+              <p class="eyebrow">Where to use extra awareness</p>
+              <h2 id="areas-title">Higher-activity locations</h2>
+            </div>
+          </div>
+          <ol class="area-list" id="area-list">
+            <li class="empty-state">Approximate locations will appear after a search.</li>
+          </ol>
+        </section>
+      </div>
+
+      <aside class="caveat" aria-labelledby="caveat-title">
+        <h2 id="caveat-title">Read the map carefully</h2>
+        <p>These are police-recorded incidents, not a complete measure of personal risk. Locations are deliberately anonymised to nearby map points, reporting varies by place, and busy destinations can show more incidents simply because more people pass through them. Use this as one input—not as a label for a neighbourhood or a substitute for current local advice.</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <p>Crime data: <a href="https://data.police.uk/">UK Police open data</a>. Maps: <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Geocoding: <a href="https://nominatim.org/">Nominatim</a>.</p>
+    <p>Built with the help of ChatGPT (GPT-5.6 sol high)</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="app.js"></script>
+</body>
+</html>

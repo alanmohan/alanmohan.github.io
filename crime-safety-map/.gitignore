@@ -1,0 +1,5 @@
+.DS_Store
+*.local
+.env
+.env.*
+hw3_recording.mov

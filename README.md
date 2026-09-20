@@ -44,6 +44,7 @@ Then visit <http://127.0.0.1:8113/>. Stop it with Ctrl-C.
 ├── script.js                      theme, navigation, project routing, stepper — all enhancements
 ├── README.md                      this file
 ├── prompt-log.md                  required AI-use record for 15-113
+├── crime-safety-map/              HW3: public-API crime-pattern explorer
 └── assets/
     ├── Alan-Mohan-Resume.pdf      the résumé, phone number removed from the text layer
     ├── resume-page-{1,2}{,-650}.webp   pre-rendered pages, used where PDFs cannot embed
