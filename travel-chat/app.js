@@ -1,5 +1,4 @@
-// Updated to the live Render URL after deployment.
-const API_URL = 'http://127.0.0.1:5000/api/chat';
+const API_URL = 'https://travel-chat-backend-4gq6.onrender.com/api/chat';
 const tripForm = document.querySelector('#trip-form');
 const followupForm = document.querySelector('#followup-form');
 const messages = document.querySelector('#messages');
