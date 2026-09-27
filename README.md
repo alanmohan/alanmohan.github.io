@@ -7,8 +7,8 @@ interpretability, generative-AI security, applied machine learning and full-stac
 AI systems. Built for 15-113 Effective Coding with AI (Project 1), and intended
 to keep serving as my public portfolio afterwards.
 
-Static HTML, CSS and JavaScript. No framework, no build step, no backend — it can
-be served by opening a file or dropped straight onto GitHub Pages.
+The portfolio shell is static HTML, CSS and JavaScript. The `travel-chat/` project
+calls a separate Flask API deployed on Render.
 
 ---
 

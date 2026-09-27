@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plan a trip around your budget, schedule, interests and travel party with an AI travel recommendation assistant.">
+  <title>Travel Chat · Personal trip ideas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#planner">Skip to trip planner</a>
+  <header class="site-header">
+    <a class="brand" href="../index.html#projects"><span class="brand-mark" aria-hidden="true">✳</span> Travel Chat</a>
+    <a class="back-link" href="../index.html#projects">Alan’s portfolio <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">A little direction for your next departure</p>
+        <h1>Where could you <em>go next?</em></h1>
+        <p class="lede">Tell us what matters to you. Get destination and activity ideas shaped around your time, budget, and travel style, then keep the conversation going.</p>
+      </div>
+      <div class="hero-stamp" aria-hidden="true"><span>✳</span><small>YOUR NEXT<br>ADVENTURE<br>STARTS HERE</small></div>
+    </section>
+
+    <div class="workspace" id="planner">
+      <section class="panel preferences" aria-labelledby="preferences-title">
+        <div class="panel-heading"><span class="step">01 / YOUR TRIP</span><h2 id="preferences-title">Set the scene</h2><p>Start with a few details. You can change them anytime.</p></div>
+        <form id="trip-form">
+          <div class="field-row">
+            <div class="field"><label for="budget">Total budget <span>USD</span></label><div class="input-prefix"><span aria-hidden="true">$</span><input id="budget" name="budget" type="number" min="1" max="100000" step="1" value="2000" required></div></div>
+            <div class="field"><label for="days">Trip length <span>days</span></label><input id="days" name="days" type="number" min="1" max="90" step="1" value="7" required></div>
+          </div>
+          <fieldset class="field"><legend>What are you into? <span>choose up to 6</span></legend><div class="chips">
+            <label><input type="checkbox" name="interest" value="food" checked><span>Food</span></label>
+            <label><input type="checkbox" name="interest" value="art and culture" checked><span>Art &amp; culture</span></label>
+            <label><input type="checkbox" name="interest" value="nature"><span>Nature</span></label>
+            <label><input type="checkbox" name="interest" value="history"><span>History</span></label>
+            <label><input type="checkbox" name="interest" value="outdoors"><span>Outdoors</span></label>
+            <label><input type="checkbox" name="interest" value="relaxation"><span>Relaxation</span></label>
+            <label><input type="checkbox" name="interest" value="nightlife"><span>Nightlife</span></label>
+            <label><input type="checkbox" name="interest" value="family activities"><span>Family fun</span></label>
+          </div></fieldset>
+          <div class="field"><label for="party">Who’s coming?</label><select id="party" name="party"><option value="solo">Just me</option><option value="couple" selected>Two of us</option><option value="friends">Friends</option><option value="family">Family</option></select></div>
+          <div class="field"><label for="question">What would you like to know?</label><textarea id="question" name="question" maxlength="1000" rows="4" placeholder="Where should we go for a week of great food and museums?" required></textarea></div>
+          <button class="primary-button" id="submit-button" type="submit">Find my trip ideas <span aria-hidden="true">↗</span></button>
+        </form>
+      </section>
+
+      <section class="panel chat" aria-labelledby="chat-title">
+        <div class="chat-heading"><div><span class="step">02 / THE CONVERSATION</span><h2 id="chat-title">Your travel guide</h2></div><button class="reset-button" id="reset-button" type="button" hidden>Start over</button></div>
+        <div class="messages" id="messages" role="log" aria-label="Travel chat conversation" aria-live="polite" aria-relevant="additions">
+          <div class="welcome"><div class="welcome-icon" aria-hidden="true">✳</div><h3>Let’s find somewhere wonderful.</h3><p>Fill in your trip details and ask your first question. Your recommendations will appear here.</p></div>
+        </div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+        <form id="followup-form" class="followup" hidden><label for="followup">Ask a follow-up</label><div class="followup-row"><input id="followup" name="followup" maxlength="1000" placeholder="What about a quieter option?" required><button type="submit" id="followup-button" aria-label="Send follow-up">↗</button></div></form>
+        <p class="disclaimer">Recommendations for inspiration only. Check current prices, availability, visa rules, hours, and safety information with official or booking sources before you travel.</p>
+      </section>
+    </div>
+  </main>
+  <footer><span>Travel Chat · A portfolio project</span><a href="https://github.com/alanmohan/alanmohan.github.io/tree/main/travel-chat">Frontend code ↗</a><a href="https://github.com/alanmohan/travel-chat-backend">API code ↗</a></footer>
+</body>
+</html>
